@@ -23,6 +23,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.jaydenxiao.common.R;
+import com.jaydenxiao.common.basemvvm.UnbindMV;
 import com.jaydenxiao.common.commonwidget.ViewPagerFixed;
 
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ import uk.co.senab.photoview.PhotoViewAttacher;
  * Created by jaydenxiao
  * 设置数据入口 startImagePagerActivity(Activity activity, List<String> imgUrls, int position);
  */
+@UnbindMV
 public class BigImagePagerActivity extends com.jaydenxiao.common.basemvvm.BaseActivity {
     public static final String INTENT_IMGURLS = "imgurls";
     public static final String INTENT_POSITION = "position";
@@ -45,8 +47,13 @@ public class BigImagePagerActivity extends com.jaydenxiao.common.basemvvm.BaseAc
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_image_pager);
+//        setContentView(R.layout.act_image_pager);
         initView();
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.act_image_pager;
     }
 
     public static void startImagePagerActivity(Activity activity, List<String> imgUrls, int position) {

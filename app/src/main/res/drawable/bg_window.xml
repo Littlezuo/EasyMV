@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <corners android:radius="5dp" />
-    <solid android:color="?attr/colorPrimary" />
+    <!--最近的项目中需要用到多个图层堆叠到一块儿，就研
+    究了一下android中的layer-list。android中的layer-list
+    就是用来多个图层堆叠显示的。 -->
+    <item >
+        <shape> <!-- 第一层的颜色为蓝色 -->
+            <solid android:color="@color/colorPrimary"/>
 
-</shape>
+        </shape>
+    </item>
+
+
+    <!--<item >-->
+        <!--<shape  android:shape="line">-->
+            <!--<solid android:color="@color/colorPrimary"/>-->
+
+            <!--<stroke android:width="80dp"/>-->
+        <!--</shape>-->
+    <!--</item>-->
+
+</layer-list>

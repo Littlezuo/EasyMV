@@ -6,7 +6,6 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowTranslucentStatus">true</item>  <!--设置状态栏透明-->
-        <!--<item name="android:windowBackground">@android:color/transparent</item> &lt;!&ndash;设置背景透明&ndash;&gt;-->
 
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -18,4 +17,21 @@
         <!--<item name="colorWhite">@color/colorWhite</item>-->
     </style>
 
+    <style name="CustomTabLayout">
+        <item name="tabIndicatorColor">@color/pink_30</item>
+        <item name="tabMaxWidth">120dp</item>
+        <item name="tabIndicatorHeight">3dp</item>
+        <item name="tabPaddingStart">12dp</item>
+        <item name="tabPaddingEnd">12dp</item>
+        <item name="tl_tab_space_equal">true</item>
+        <item name="tl_indicator_corner_radius">1dp</item>
+        <item name="tabTextAppearance">@style/CustomTabTextAppearance</item>
+        <item name="tabSelectedTextColor">?android:textColorPrimary</item>
+    </style>
+    <!--图片不显示textAllCaps属性是关键-->
+    <style name="CustomTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="textAllCaps">false</item>
+    </style>
 </resources>

@@ -32,20 +32,20 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     //    testCompile 'junit:junit:4.12'
     compile project(':common')
-    compile 'com.android.support:appcompat-v7:25.3.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
 
-    compile 'com.github.mzule.activityrouter:activityrouter:1.2.2'
-    annotationProcessor 'com.github.mzule.activityrouter:compiler:1.1.7'
-    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     compile 'com.github.mzule.activityrouter:activityrouter:1.2.2'
 //    annotationProcessor 'com.github.mzule.activityrouter:compiler:1.1.7'
 //    compile 'com.github.campusappcn.AndRouter:router:1.2.8'
 //    apt 'com.github.campusappcn.AndRouter:compiler:1.2.8'
+//    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.github.mzule.activityrouter:activityrouter:1.2.2'
+    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+//    compile 'com.android.support:support-v4:25.3.1'
+    annotationProcessor 'com.github.mzule.activityrouter:compiler:1.1.7'
 }
 repositories {
     mavenCentral()

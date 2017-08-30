@@ -4,9 +4,11 @@
     <!--<color name="colorPrimaryDark">#FA7C20</color>-->
     <!--<color name="colorAccent">#FA7C20</color>-->
 
-    <color name="colorPrimary">#3db6f9</color>
-    <color name="colorPrimaryDark">#3db6f9</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">@color/orange</color>
+    <color name="colorPrimaryDark">@color/orange_dark</color>
+    <color name="colorAccent">@android:color/black</color>
+
+
     <!--白天主题-->
     <color name="day_backgroup_color">#FFFFFFFF</color>
     <color name="day_one_text_color">#FF000000</color>
@@ -20,6 +22,7 @@
     <!-- app主色调-->
     <color name="main_color">#666</color>
     <color name="orange">#FA8C20</color>
+    <color name="orange_dark">#EF6C00</color>
     <color name="wheel_divider_line_color">#FF000000</color>
     <color name="wheel_item_text_color_selected">#FF0288ce</color>
     <color name="wheel_item_text_color_no_select">#FFbbbbbb</color>

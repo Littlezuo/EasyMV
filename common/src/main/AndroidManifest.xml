@@ -4,7 +4,7 @@ package="com.jaydenxiao.common">
 
 <application
     android:supportsRtl="true"
-    android:theme="@style/AppTheme"
+    android:theme="@style/BaseAppTheme"
     >
     <!--<activity-->
         <!--android:name=".imagePager.BigImagePagerActivity"/>-->

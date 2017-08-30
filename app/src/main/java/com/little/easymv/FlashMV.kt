@@ -1,8 +1,6 @@
 package com.little.easymv
 
-import android.util.Log
 import com.jaydenxiao.common.basemvvm.ViewModel
-import kotlinx.android.synthetic.main.activity_flash.*
 
 
 /**
@@ -15,7 +13,7 @@ class FlashMV : ViewModel() {
 //        Log.e("tag", mContext.iv_flash.toString())
     }
 
-    fun setData() {
-        Log.e("tag", mContext.iv_flash.toString())
-    }
+//    fun setData() {
+//        Log.e("tag", mContext.iv_flash.toString())
+//    }
 }

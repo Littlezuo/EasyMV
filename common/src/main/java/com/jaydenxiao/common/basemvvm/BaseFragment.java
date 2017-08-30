@@ -57,7 +57,7 @@ public abstract class BaseFragment<M extends ViewModel> extends Fragment impleme
 //            EventBusUtil.register(this);
             RxBus.getDefault().register(this);
         }
-        if(this.getClass().isAnnotationPresent(BindMV.class)) {
+        if(this.getClass().isAnnotationPresent(UnbindMV.class)) {
             setModel();
         }
         isPrepared = true;

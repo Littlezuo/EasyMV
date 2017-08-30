@@ -8,10 +8,10 @@
     tools:openDrawer="start"
     android:id="@+id/dl_main_drawer"
     tools:context="com.little.easymv.MainActivity">
-
     <include layout="@layout/main_content"/>
 
     <android.support.design.widget.NavigationView
+        android:fitsSystemWindows="true"
         android:id="@+id/nv_main_navigation"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

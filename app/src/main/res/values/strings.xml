@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">耳朵</string>
+    <string name="app_name">普卡</string>
     <string name="menu_settings">用户</string>
     <string name="menu_search">Search</string>
 
@@ -21,4 +21,7 @@
 
     <string name="hint_long">▆▆▆▆▆▆▆▆▆▆▆▆▆</string>
     <string name="hint_short">▆▆▆▆▆</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

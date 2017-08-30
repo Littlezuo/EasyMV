@@ -5,12 +5,14 @@
 
     <application
 
+        tools:replace="android:theme"
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:name="com.little.easymv.base.App"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
 
 
         <activity android:name="com.little.easymv.FlashActivity">
@@ -19,19 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.github.mzule.activityrouter.router.RouterActivity"
-            android:theme="@android:style/Theme.NoDisplay">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
 
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+        <activity android:name="com.little.easymv.MainActivity"
+                  android:theme="@style/AppTheme.NoActionBar.BG"
+                  android:launchMode="singleTask">
 
-                <data android:scheme="wyx"/> <!-- 改成自己的scheme -->
-            </intent-filter>
-        </activity>
-        <activity android:name="com.little.easymv.MainActivity">
         </activity>
     </application>
 

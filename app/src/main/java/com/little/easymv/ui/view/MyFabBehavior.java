@@ -1,4 +1,4 @@
-package com.little.easymv.view;
+package com.little.easymv.ui.view;
 
 import android.animation.Animator;
 import android.content.Context;

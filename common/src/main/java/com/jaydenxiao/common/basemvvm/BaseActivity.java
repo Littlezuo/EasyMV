@@ -25,22 +25,22 @@ public abstract class BaseActivity<M extends ViewModel> extends AppCompatActivit
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         doBeforeSetContentView();
-//        setContentView(getLayoutId());
+        setContentView(getLayoutId());
         mContext = this;
         mRxManager = new RxManager();
-//        StatusBarUtil.setStatusBarColor(this,R.color.colorPrimaryDark);
         if(this.getClass().isAnnotationPresent(BindBus.class)) {
 //            EventBusUtil.register(this);
             RxBus.getDefault().register(this);
         }
-        if(this.getClass().isAnnotationPresent(BindMV.class)) {
+        //默认使用viewmodel
+        if(!this.getClass().isAnnotationPresent(UnbindMV.class)) {
             setModel();
         }
-//        initData();
+        initData();
     }
 
-//    protected  void initData(){}
-//    public abstract int getLayoutId();
+    protected  void initData(){}
+    public abstract int getLayoutId();
 
     private void doBeforeSetContentView() {
         AppManager.getAppManager().addActivity(this);
