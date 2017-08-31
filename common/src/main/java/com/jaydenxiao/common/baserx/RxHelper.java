@@ -1,71 +1,136 @@
 package com.jaydenxiao.common.baserx;
 
-import com.jaydenxiao.common.basebean.BaseRespose;
-import com.jaydenxiao.common.commonutils.LogUtils;
+
+import com.google.gson.Gson;
+import com.jaydenxiao.common.baseapp.BaseApplication;
+import com.jaydenxiao.common.compressorutils.FileUtil;
+import com.jaydenxiao.common.httpconfig.HandleResultFuc;
+import com.jaydenxiao.common.httpconfig.exception.RetrofitException;
+
+import java.util.concurrent.TimeoutException;
 
 import rx.Observable;
-import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
- * des:对服务器返回数据成功和失败处理
- * Created by xsf
- * on 2016.09.9:59
+ * Created by Jam on 16-6-12
+ * Description: Rx 一些巧妙的处理
  */
-/**************使用例子******************/
-/*_apiService.login(mobile, verifyCode)
-        .compose(RxSchedulersHelper.io_main())
-        .compose(RxResultHelper.handleResult())
-        .//省略*/
-
 public class RxHelper {
+
     /**
-     * 对服务器返回数据进行预处理
+     * 异常处理变压器
      *
      * @param <T>
      * @return
      */
-    public static <T> Observable.Transformer<BaseRespose<T>, T> handleResult() {
-        return new Observable.Transformer<BaseRespose<T>, T>() {
+    public static <T> Observable.Transformer<BaseResponse<T>, T> handleErrTransformer() {
+        return new Observable.Transformer<BaseResponse<T>, T>() {
             @Override
-            public Observable<T> call(Observable<BaseRespose<T>> tObservable) {
-                return tObservable.flatMap(new Func1<BaseRespose<T>, Observable<T>>() {
-                    @Override
-                    public Observable<T> call(BaseRespose<T> result) {
-                        LogUtils.logd("result from api : " + result);
-                        if (result.success()) {
-                            return createData(result.data);
-                        } else {
-                            return Observable.error(new ServerException(result.msg));
-                        }
-                    }
-                }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+            public Observable<T> call(Observable<BaseResponse<T>> observable) {
+                return observable
+                        .flatMap(new <T>HandleResultFuc())    //将RxSubscriber中服务器异常处理换到这里,在RxSubscriber中处理onstart(),onCompleted().onError,onNext()
+                        .compose(io_main()) //处理线程切换,注销Observable
+                        .onErrorResumeNext(httpResponseFunc());//判断异常
+//                        .retryWhen(new RetryFuc(3, 2 * 1000)) //重试次数,重试间隔
+//                        .retryWhen(new TimeOutRetry());  //token过期的重试
+            }
+        };
+    }
+
+    /**
+     * 使用假数据,读取的是assets中的json数据
+     *
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    public static <T> Observable.Transformer<T, T> handleVirtualData(final Class<T> clazz) {
+        return new Observable.Transformer<T, T>() {
+            @Override
+            public Observable<T> call(Observable<T> observable) {
+                String filepath = "virtualdata" + "/" + clazz.getSimpleName();
+                String response = FileUtil.getJson(BaseApplication.getAppContext(), filepath);
+                Gson gson = new Gson();
+                T data = gson.fromJson(response, clazz);
+                return HandleResultFuc.createData(data);
+            }
+        };
+    }
+
+    /**
+     * 异常处理变压器
+     *
+     * @param <T>
+     * @return
+     */
+    public static <T> Observable.Transformer<T, T> handleErr() {
+        return new Observable.Transformer<T, T>() {
+            @Override
+            public Observable<T> call(Observable<T> observable) {
+                return (Observable<T>) observable
+                        .compose(io_main()) //处理线程切换,注销Observable
+                        .onErrorResumeNext(httpResponseFunc());//判断异常
             }
         };
 
+
     }
 
     /**
-     * 创建成功的数据
+     * 根据responseCode,处理异常,类似于捕获了异常
      *
-     * @param data
+     * @param <T>
+     */
+    private static <T> Func1<Throwable, Observable<T>> httpResponseFunc() {
+        return new Func1<Throwable, Observable<T>>() {
+            @Override
+            public Observable<T> call(Throwable throwable) {
+                return Observable.error(RetrofitException.handleException(throwable));
+            }
+        };
+    }
+
+
+
+    /**
+     * 调度器,切换线程和注销Observable
+     *
      * @param <T>
      * @return
      */
-    private static <T> Observable<T> createData(final T data) {
-        return Observable.create(new Observable.OnSubscribe<T>() {
+    public static <T> Observable.Transformer<T, T> io_main() {
+        return new Observable.Transformer<T, T>() {
             @Override
-            public void call(Subscriber<? super T> subscriber) {
-                try {
-                    subscriber.onNext(data);
-                    subscriber.onCompleted();
-                } catch (Exception e) {
-                    subscriber.onError(e);
-                }
+            public Observable<T> call(Observable<T> tObservable) {
+                return tObservable
+                        .subscribeOn(Schedulers.io())
+                        .unsubscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread());
             }
-        });
-
+        };
     }
+
+    /**
+     * token过期,登录超时的重新连接
+     */
+    public static class TimeOutRetry implements Func1<Observable<? extends Throwable>, Observable> {
+
+        @Override
+        public Observable call(Observable<? extends Throwable> observable) {
+            return observable.flatMap(new Func1<Throwable, Observable<?>>() {
+                @Override
+                public Observable<?> call(Throwable throwable) {
+                    if (throwable instanceof TimeoutException) {
+                        //登录超时,重新登录
+//                        FrameWorkConfig.frameworkSupport.onSessionInvaild();
+                    }
+                    return Observable.error(throwable);
+                }
+            });
+        }
+    }
+
 }

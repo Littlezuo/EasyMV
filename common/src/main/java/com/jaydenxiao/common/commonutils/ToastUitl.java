@@ -9,8 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jaydenxiao.common.baseapp.BaseApplication;
 import com.jaydenxiao.common.R;
+import com.jaydenxiao.common.baseapp.BaseApplication;
+
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 
 /**
@@ -116,5 +120,14 @@ public class ToastUitl {
         toast2.setGravity(Gravity.CENTER, 0, 0);
         toast2.show();
         return toast2;
+    }
+
+    public static void showSafeShort(final String message) {
+        Observable.just(message).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<String>() {
+            @Override
+            public void call(String s) {
+                showShort(message);
+            }
+        });
     }
 }

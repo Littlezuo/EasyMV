@@ -1,5 +1,13 @@
 package com.little.easymv.bean;
 
+import com.jaydenxiao.common.baserx.RxHelper;
+import com.little.easymv.api.Api;
+import com.little.easymv.api.BaseSubscriber;
+import com.little.easymv.api.HostType;
+import com.little.easymv.responsebean.RecommendResponse;
+
+import java.util.List;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -16,6 +24,7 @@ public class MessageInfo extends RealmObject implements BaseBean {
 
     @Override
     public String getObjectId() {
+
         return objectId;
     }
 }

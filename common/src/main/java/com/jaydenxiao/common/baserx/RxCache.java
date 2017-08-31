@@ -21,7 +21,7 @@ import rx.schedulers.Schedulers;
 /*
 Observable<LoginData> fromNetwork = Api.getDefault()
         .login(phone, password)
-        .compose(RxHelper.handleResult());
+        .compose(MyRxHelper.handleResult());
 
         RxCache.load(context,cacheKey,1000*60*30,fromNetwork,false)
         .subscribe(new RxSubscribe<LoginData>(context, "登录中...") {

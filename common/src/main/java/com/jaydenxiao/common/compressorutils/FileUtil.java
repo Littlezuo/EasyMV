@@ -1,17 +1,21 @@
 package com.jaydenxiao.common.compressorutils;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.util.Log;
 
+import java.io.BufferedReader;
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 /**
@@ -173,5 +177,70 @@ public class FileUtil {
             return false;
         }
         return true;
+    }
+
+    /**
+     * loadFromAssets
+     *
+     * @param context
+     * @param fileName
+     * @return
+     */
+    public static String loadFromAssets(Context context, String fileName) {
+        BufferedReader reader = null;
+        try {
+            InputStream in = context.getResources().getAssets().open(fileName);
+            reader = new BufferedReader(new InputStreamReader(in));
+
+            char[] buf = new char[1024];
+            int count = 0;
+            StringBuffer sb = new StringBuffer(in.available());
+            while ((count = reader.read(buf)) != -1) {
+                String readData = String.valueOf(buf, 0, count);
+                sb.append(readData);
+            }
+
+            return sb.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeStream(reader);
+        }
+
+        return "";
+    }
+
+    private static void closeStream(Closeable stream) {
+        if (stream != null) {
+            try {
+                stream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 读取assets下json文件
+     *
+     * @param context
+     * @param fileName
+     * @return
+     */
+    public static String getJson(Context context, String fileName) {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        try {
+            AssetManager assetManager = context.getAssets();
+            BufferedReader bf = new BufferedReader(new InputStreamReader(
+                    assetManager.open(fileName + ".json"), "UTF-8"));
+            String line;
+            while ((line = bf.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return stringBuilder.toString();
     }
 }

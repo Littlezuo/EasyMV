@@ -3,6 +3,7 @@ package com.jaydenxiao.common.baseapp;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.annotation.StringRes;
 import android.support.multidex.MultiDex;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -21,12 +22,29 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         baseApplication = this;
-        Hawk.init(this)
-                .setEncryption(new NoEncryption())
-                .build();
-        initLeakCanary();
-        Fresco.initialize(this);
-        Stetho.initializeWithDefaults(this);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //设置线程优先级,不与主线程抢资源
+//                Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
+                //初始化fresco
+                Fresco.initialize(getAppContext());
+                //初始化realm
+//                initRealm();
+                //初始化缓存
+                Hawk.init(getAppContext())
+                        .setEncryption(new NoEncryption())
+                        .build();
+                //蒲公英crash上报
+                //PgyCrashManager.register(this);
+                //初始化内存泄漏检测
+                //LeakCanary.install(this);
+                //初始化过度绘制检测
+                //BlockCanary.install(this, new AppBlockCanaryContext()).start();
+                initLeakCanary();
+                Stetho.initializeWithDefaults(getAppContext());
+            }
+        }).start();
     }
 
     private void initLeakCanary() {
@@ -46,6 +64,11 @@ public class BaseApplication extends Application {
     public static Resources getAppResources() {
         return baseApplication.getResources();
     }
+
+    public static String getStr(@StringRes int strRes) {
+        return getAppResources().getString(strRes);
+    }
+
 
     @Override
     public void onTerminate() {

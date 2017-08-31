@@ -75,6 +75,7 @@ dependencies {
     compile 'com.orhanobut:logger:1.13'
     //显示图片框架
     compile 'com.github.bumptech.glide:glide:3.6.1'
+    compile 'jp.wasabeef:glide-transformations:2.0.2'
     //悬浮动画菜单
     compile 'com.github.clans:fab:1.6.4'
     //调试
@@ -94,6 +95,9 @@ dependencies {
     //动态权限
 //    compile 'pub.devrel:easypermissions:0.3.1'
     compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.androidadvance:topsnackbar:1.1.1'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
+
 
 }
 

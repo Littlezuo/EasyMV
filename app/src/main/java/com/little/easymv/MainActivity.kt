@@ -5,10 +5,12 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
 import com.jaydenxiao.common.baseevent.BindBus
 import com.jaydenxiao.common.basemvvm.BaseActivity
+import com.jaydenxiao.common.commonutils.ImageLoaderUtils
 import com.jaydenxiao.common.commonutils.LogUtils
 import com.little.easymv.vm.MainMV
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.main_content.*
+import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 @BindBus
 class MainActivity : BaseActivity<MainMV>(), NavigationView.OnNavigationItemSelectedListener {
@@ -40,6 +42,13 @@ class MainActivity : BaseActivity<MainMV>(), NavigationView.OnNavigationItemSele
         LogUtils.loge("$homePageAdapter")
         viewpager.setAdapter(homePageAdapter)
         tabs.setupWithViewPager(viewpager)
+
+        //菜单栏
+        val headerView = nv_main_navigation.getHeaderView(0)
+        //让item显示原本的颜色
+//        nv_main_navigation.itemIconTintList = null
+        ImageLoaderUtils.displayCircle(this,headerView.im_face,R.drawable.pig)
+        ImageLoaderUtils.displayCircle(this,iv_user,R.drawable.pig)
     }
 
     override fun onUpdate(type: Int) {
@@ -48,7 +57,5 @@ class MainActivity : BaseActivity<MainMV>(), NavigationView.OnNavigationItemSele
         }
     }
 
-    private fun initTabs() {
 
-    }
 }

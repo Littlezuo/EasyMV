@@ -7,19 +7,19 @@ import java.io.Serializable;
  * Created by xsf
  * on 2016.09.9:47
  */
-public class BaseRespose <T> implements Serializable {
-    public String code;
+public class MyBaseRespose<T> implements Serializable {
+    public int code = 1;
     public String msg;
 
     public T data;
 
     public boolean success() {
-        return "1".equals(code);
+        return 1== code;
     }
 
     @Override
     public String toString() {
-        return "BaseRespose{" +
+        return "MyBaseRespose{" +
                 "code='" + code + '\'' +
                 ", msg='" + msg + '\'' +
                 ", data=" + data +

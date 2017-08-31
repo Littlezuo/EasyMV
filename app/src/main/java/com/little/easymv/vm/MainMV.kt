@@ -17,7 +17,7 @@ class MainMV : ViewModel() {
 
     var fragments = kotlin.collections.arrayListOf<Fragment>()
     var data = mutableListOf<String>()
-    val icons = intArrayOf(R.drawable.selector_tab_favorite, R.drawable.selector_tab_recom, R.drawable.selector_tab_category, R.drawable.selector_tab_game)
+    val icons = intArrayOf(R.drawable.selector_tab_recom,R.drawable.selector_tab_favorite,  R.drawable.selector_tab_category, R.drawable.selector_tab_game)
     override fun onStart() {
         initFragments()
 
@@ -28,8 +28,8 @@ class MainMV : ViewModel() {
     }
 
     private fun initFragments() {
-        fragments.add(FavoriteFragment.newInstance())
         fragments.add(RecomFragment.newInstance())
+        fragments.add(FavoriteFragment.newInstance())
         fragments.add(CategoryFragment.newInstance())
         fragments.add(GameFragment.newInstance())
     }

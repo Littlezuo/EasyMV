@@ -17,8 +17,10 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/white"
+        app:itemTextColor="@color/orange"
+        app:itemIconTint="@color/orange"
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer"/>
-
+    <!--app:itemIconTint="@color/blue" 让icon显示颜色-->
 
 </android.support.v4.widget.DrawerLayout>
