@@ -21,6 +21,7 @@
 
     <style name="AppTheme.NoActionBar.FULL">
         <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@drawable/splash_layout</item>
     </style>
 
     <!--<style name="AppTheme.NoActionBar.Slide">-->
