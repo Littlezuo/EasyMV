@@ -19,10 +19,9 @@ class MainMV : ViewModel() {
     var data = mutableListOf<String>()
     val icons = intArrayOf(R.drawable.selector_tab_recom,R.drawable.selector_tab_favorite,  R.drawable.selector_tab_category, R.drawable.selector_tab_game)
     override fun onStart() {
+        super.onStart()
         initFragments()
-
 //        mVMListener.onUpdate(MainMV.TABS)
-
 //        initResIcon()
 
     }

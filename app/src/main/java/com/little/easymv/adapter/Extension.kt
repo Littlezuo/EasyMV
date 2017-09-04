@@ -1,23 +1,43 @@
 package com.little.easymv.adapter
 
+import com.jaydenxiao.common.baseevent.EventBusUtil
 import com.little.easymv.responsebean.RecommendResponse
 
 /**
  * Created by Littlezuo on 2017/8/31.
  */
 
-fun formatRecom(list :List<RecommendResponse>):List<FormatRecomBean> {
+fun formatRecom(list: List<RecommendResponse>): MutableList<FormatRecomBean> {
     val recoms = mutableListOf<FormatRecomBean>()
     recoms.add(FormatRecomBean(list.get(0)))
-    for (item in list) {
+    val subList = list.subList(1, list.size)
+    for (item in subList) {
         recoms.add(FormatRecomBean(item.title))
-        var span = 3;
+        var span = 2
         for (childitem in item.data) {
-            when(item.data.size%2) {
-                1 -> span = 2;
+            when (item.data.size % 3) {
+                1 -> span = 3
+//                2 -> span =
             }
-            recoms.add(FormatRecomBean(childitem,span))
+            recoms.add(FormatRecomBean(childitem, span))
         }
     }
-    return recoms;
+    return recoms
 }
+
+fun registerEventBus(any: Any) {
+    EventBusUtil.register(any)
+}
+
+fun unregisterEventBus(any: Any) {
+    EventBusUtil.register(any)
+}
+
+fun postMessage(event: Any) {
+    EventBusUtil.post(event)
+}
+
+//val TO_TOP = 0x33333;
+
+
+

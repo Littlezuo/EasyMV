@@ -4,14 +4,14 @@ package com.little.easymv
 import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
-import android.util.Log
-import com.jaydenxiao.common.baseapp.RouterManager
+import com.jaydenxiao.common.baseapp.Router
 import com.jaydenxiao.common.baseevent.BindBus
-import com.jaydenxiao.common.baseevent.rxbus.RxBus
-import com.jaydenxiao.common.baseevent.rxbus.Subscribe
 import com.jaydenxiao.common.basemvvm.BaseActivity
-import com.little.easymv.base.EventName
+import com.little.easymv.adapter.postMessage
+import com.little.easymv.event.EventUI
+import com.little.easymv.event.TO_MAIN
 import kotlinx.android.synthetic.main.activity_flash.*
+import org.greenrobot.eventbus.Subscribe
 
 @BindBus
 class FlashActivity : BaseActivity<FlashMV>() {
@@ -21,7 +21,7 @@ class FlashActivity : BaseActivity<FlashMV>() {
 
 
     override fun initData() {
-        RxBus.getDefault().post(100, EventA("textxxxx"))
+//        RxBus.getDefault().post(100, EventA("textxxxx"))
         startAnimator()
     }
 
@@ -37,11 +37,11 @@ class FlashActivity : BaseActivity<FlashMV>() {
         animator.start()
         animator.addListener(object : Animator.AnimatorListener {
             override fun onAnimationRepeat(animation: Animator?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
             override fun onAnimationEnd(animation: Animator?) {
-                mRxManager.post(EventName.TO_MAIN, "")
+//                mRxManager.post(EventName.TO_MAIN, "")
+                postMessage(EventUI(TO_MAIN))
             }
 
             override fun onAnimationCancel(animation: Animator?) {
@@ -50,13 +50,20 @@ class FlashActivity : BaseActivity<FlashMV>() {
             override fun onAnimationStart(animation: Animator?) {
             }
         })
+
     }
 
-    @Subscribe(value = EventName.TO_MAIN)
-    fun jump2main(tag: String) {
-        Log.e("CMAD", "jump $tag")
-        RouterManager.start(MainActivity::class.java)
-        finish()
+    @Subscribe()
+    open fun jump2main(tag: EventUI) {
+        if (tag.is2main()) {
+//            RouterManager.start(MainActivity::class.java)
+            Router.from(this)
+                    .anim(R.anim.screen_zoom_in, R.anim.screen_zoom_out)
+                    .to(MainActivity::class.java)
+                    .launch(true)
+
+//            finish()
+        }
     }
 
 }

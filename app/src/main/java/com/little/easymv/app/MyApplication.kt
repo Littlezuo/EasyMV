@@ -1,8 +1,8 @@
 package com.little.easymv.app
 
 import android.content.Context
-import com.jaydenxiao.common.BuildConfig
 import com.jaydenxiao.common.baseapp.BaseApplication
+import com.little.easymv.BuildConfig
 import com.little.easymv.constants.EnvirConfig
 
 /**
@@ -17,7 +17,7 @@ class MyApplication : BaseApplication() {
 
     override fun onCreate() {
         super.onCreate()
-//        C.context = applicationContext
+        C.context = applicationContext
         EnvirConfig.setEnvir(BuildConfig.API_ENV)
         getAppContext()
     }

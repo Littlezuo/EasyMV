@@ -3,17 +3,20 @@ package com.little.easymv
 import android.support.design.widget.NavigationView
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
-import com.jaydenxiao.common.baseevent.BindBus
+import android.view.View
 import com.jaydenxiao.common.basemvvm.BaseActivity
 import com.jaydenxiao.common.commonutils.ImageLoaderUtils
-import com.jaydenxiao.common.commonutils.LogUtils
+import com.little.easymv.adapter.postMessage
+import com.little.easymv.event.EventUI
+import com.little.easymv.event.TO_TOP
 import com.little.easymv.vm.MainMV
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.main_content.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 
-@BindBus
-class MainActivity : BaseActivity<MainMV>(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity<MainMV>(), NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+
+
     override fun getLayoutId(): Int {
 //        StatusBarUtil.setStatusBarColor(this, com.jaydenxiao.common.R.color.colorPrimary)
 //        window.decorView.setBackgroundColor(R.color.colorPrimary)
@@ -27,7 +30,7 @@ class MainActivity : BaseActivity<MainMV>(), NavigationView.OnNavigationItemSele
     }
 
     override fun initData() {
-       initView()
+        initView()
     }
 
 
@@ -39,22 +42,26 @@ class MainActivity : BaseActivity<MainMV>(), NavigationView.OnNavigationItemSele
         nv_main_navigation.setNavigationItemSelectedListener(this)
 
         val homePageAdapter = HomePageAdapter(supportFragmentManager, model.fragments, model.icons)
-        LogUtils.loge("$homePageAdapter")
+//        LogUtils.loge("$homePageAdapter")
         viewpager.setAdapter(homePageAdapter)
+        viewpager.offscreenPageLimit = 3
         tabs.setupWithViewPager(viewpager)
 
         //菜单栏
         val headerView = nv_main_navigation.getHeaderView(0)
         //让item显示原本的颜色
 //        nv_main_navigation.itemIconTintList = null
-        ImageLoaderUtils.displayCircle(this,headerView.im_face,R.drawable.pig)
-        ImageLoaderUtils.displayCircle(this,iv_user,R.drawable.pig)
+        ImageLoaderUtils.displayCircle(this, headerView.im_face, R.drawable.pig)
+        ImageLoaderUtils.displayCircle(this, iv_user, R.drawable.pig)
+        fab.setOnClickListener(this)
     }
 
     override fun onUpdate(type: Int) {
-        when (type) {
-//            MainMV.TABS -> initTabs()
-        }
+
+    }
+
+    override fun onClick(v: View?) {
+        postMessage(EventUI(TO_TOP))
     }
 
 

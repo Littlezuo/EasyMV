@@ -12,7 +12,7 @@ class GameFragment : BaseFragment<ViewModel>() {
 
 
     override fun getLayoutResource(): Int {
-        return R.layout.fragment_favorite
+        return R.layout.recy_fragment
     }
 
     companion object {

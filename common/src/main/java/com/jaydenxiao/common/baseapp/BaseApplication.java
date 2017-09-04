@@ -86,4 +86,8 @@ public class BaseApplication extends Application {
         MultiDex.install(this);
     }
 
+    public static int getAppColor(int colorId) {
+        int color = getAppResources().getColor(colorId);
+        return color;
+    }
 }

@@ -6,7 +6,6 @@ import java.util.Map;
 
 import rx.Observable;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
 
@@ -19,7 +18,7 @@ public class RxManager {
     public RxManager() {
 //        com.jaydenxiao.common.baseevent.rxbus.RxBus.getDefault().register(this);
     }
-        public RxBus mRxBus = RxBus.getInstance();
+//        public RxBus mRxBus = RxBus.getInstance();
 
     //管理rxbus订阅
     private Map<String, Observable<?>> mObservables = new HashMap<>();
@@ -33,16 +32,16 @@ public class RxManager {
      */
     @Deprecated
     public <T>void on(String eventName, Action1<T> action1) {
-        Observable<T> mObservable = mRxBus.register(eventName);
-        mObservables.put(eventName, mObservable);
-        /*订阅管理*/
-        mCompositeSubscription.add(mObservable.observeOn(AndroidSchedulers.mainThread())
-                .subscribe(action1, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        throwable.printStackTrace();
-                    }
-                }));
+//        Observable<T> mObservable = mRxBus.register(eventName);
+//        mObservables.put(eventName, mObservable);
+//        /*订阅管理*/
+//        mCompositeSubscription.add(mObservable.observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(action1, new Action1<Throwable>() {
+//                    @Override
+//                    public void call(Throwable throwable) {
+//                        throwable.printStackTrace();
+//                    }
+//                }));
 
     }
 
@@ -68,6 +67,6 @@ public class RxManager {
     //发送rxbus
     public void post(int code, Object content) {
 //        mRxBus.post(tag, content);
-        com.jaydenxiao.common.baseevent.rxbus.RxBus.getDefault().post(code,content);
+//        com.jaydenxiao.common.baseevent.rxbus.RxBus.getDefault().post(code,content);
     }
 }

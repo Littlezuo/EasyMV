@@ -11,10 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jaydenxiao.common.baseevent.BindBus;
-import com.jaydenxiao.common.baseevent.rxbus.RxBus;
+import com.jaydenxiao.common.baseevent.EventBusUtil;
 import com.jaydenxiao.common.baserx.RxManager;
+import com.jaydenxiao.common.commonutils.LogUtils;
 import com.jaydenxiao.common.commonutils.TUtil;
-import com.orhanobut.logger.Logger;
 
 /**
  * Created by joyin on 17-4-12.
@@ -54,24 +54,26 @@ public abstract class BaseFragment<M extends ViewModel> extends Fragment impleme
         mContext = getActivity();
         mRxManager = new RxManager();
         if(this.getClass().isAnnotationPresent(BindBus.class)) {
-//            EventBusUtil.register(this);
-            RxBus.getDefault().register(this);
+            EventBusUtil.register(this);
+//            RxBus.getDefault().register(this);
         }
-        if(this.getClass().isAnnotationPresent(UnbindMV.class)) {
+        //默认绑定mv
+        if(!this.getClass().isAnnotationPresent(UnbindMV.class)) {
             setModel();
         }
         isPrepared = true;
         isGolazyLoad();
+        LogUtils.loge("onCreateView ==" + this);
         return rootView;
     }
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        LogUtils.loge("onViewCreated ==" + this);
         initData();
     }
 
-    private void initData() {
+    public void initData() {
 
     }
 
@@ -97,6 +99,7 @@ public abstract class BaseFragment<M extends ViewModel> extends Fragment impleme
         super.setUserVisibleHint(isVisibleToUser);
         if (getUserVisibleHint()) {
             isVisible = true;
+            isGolazyLoad();
             onVisible();
         } else {
             isVisible = false;
@@ -106,7 +109,7 @@ public abstract class BaseFragment<M extends ViewModel> extends Fragment impleme
 
 
     private void isGolazyLoad() {
-        Logger.d("isGolazyLoad");
+        LogUtils.logd("isGolazyLoad");
         if (!isPrepared || !isVisible) {
             return;
         }
@@ -132,12 +135,15 @@ public abstract class BaseFragment<M extends ViewModel> extends Fragment impleme
     protected void setModel() {
         model = TUtil.getT(this, 0);
         if (model != null) {
+            model.onStart();
             mContext = getActivity();
             model.mContext = mContext;
             model.mRxManager = mRxManager;
+//            model.isVisiable = isVisible;
+            model.rootView = rootView;
             model.setVMListener(this);
         } else {
-            throw new IllegalStateException("fragment绑定viewmodel异常");
+            throw new IllegalStateException("检查fragment是否viewmodel");
         }
     }
 
@@ -146,8 +152,8 @@ public abstract class BaseFragment<M extends ViewModel> extends Fragment impleme
         super.onDestroy();
         mRxManager.clear();
         if(this.getClass().isAnnotationPresent(BindBus.class)) {
-//            EventBusUtil.unregister(this);
-            RxBus.getDefault().unRegister(this);
+            EventBusUtil.unregister(this);
+//            RxBus.getDefault().unRegister(this);
         }
         if (model != null) {
             model.onDestory();

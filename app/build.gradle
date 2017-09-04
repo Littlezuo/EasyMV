@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'realm-android'
-apply plugin: 'com.chenenyu.router'
+//apply plugin: 'com.chenenyu.router'
 
 
 android {
@@ -23,6 +23,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            buildConfigField "boolean", "API_ENV", "true"
+        }
+        debug {
+            minifyEnabled false
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            buildConfigField "boolean", "API_ENV", "false"
         }
     }
 //    compileOptions {
@@ -39,7 +46,6 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     //    testCompile 'junit:junit:4.12'
     compile project(':common')
-    compile 'com.github.CarGuo:FrescoUtils:v1.0.8'
 
 //    compile 'com.github.mzule.activityrouter:activityrouter:1.2.2'
 //    annotationProcessor 'com.github.mzule.activityrouter:compiler:1.1.7'
@@ -55,6 +61,8 @@ dependencies {
 //    compile 'com.android.support:support-v4:25.3.1'
 //    annotationProcessor 'com.github.mzule.activityrouter:compiler:1.1.7'
 
+    compile 'com.github.CarGuo:FrescoUtils:v1.0.8'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
 repositories {
     mavenCentral()

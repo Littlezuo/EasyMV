@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.jaydenxiao.common.baseapp.AppManager;
 import com.jaydenxiao.common.baseevent.BindBus;
-import com.jaydenxiao.common.baseevent.rxbus.RxBus;
+import com.jaydenxiao.common.baseevent.EventBusUtil;
 import com.jaydenxiao.common.baserx.RxManager;
 import com.jaydenxiao.common.commonutils.TUtil;
 
@@ -29,8 +29,7 @@ public abstract class BaseActivity<M extends ViewModel> extends AppCompatActivit
         mContext = this;
         mRxManager = new RxManager();
         if(this.getClass().isAnnotationPresent(BindBus.class)) {
-//            EventBusUtil.register(this);
-            RxBus.getDefault().register(this);
+            EventBusUtil.register(this);
         }
         //默认使用viewmodel
         if(!this.getClass().isAnnotationPresent(UnbindMV.class)) {
@@ -72,8 +71,7 @@ public abstract class BaseActivity<M extends ViewModel> extends AppCompatActivit
             model.onDestory();
         }
         if(this.getClass().isAnnotationPresent(BindBus.class)) {
-//            EventBusUtil.unregister(this);
-            RxBus.getDefault().unRegister(this);
+            EventBusUtil.unregister(this);
         }
         super.onDestroy();
     }

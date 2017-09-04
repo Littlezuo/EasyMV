@@ -48,9 +48,26 @@ public abstract class MyBaseQuickAdapter<T> extends BaseQuickAdapter<T, BaseView
 
     protected void initEmpty(RecyclerView recyclerView) {
 
-        loadingView = ((Activity) mContext).getLayoutInflater().inflate(R.layout.loading_bg, (ViewGroup) recyclerView.getParent(), false);
-        notDataView = ((Activity) mContext).getLayoutInflater().inflate(R.layout.empty_bg, (ViewGroup) recyclerView.getParent(), false);
-        netErrView = ((Activity) mContext).getLayoutInflater().inflate(R.layout.neterr_bg, (ViewGroup) recyclerView.getParent(), false);
+        loadingView = ((Activity)recyclerView.getContext()).getLayoutInflater().inflate(R.layout.loading_bg, (ViewGroup) recyclerView.getParent(), false);
+        notDataView = ((Activity)recyclerView.getContext()).getLayoutInflater().inflate(R.layout.empty_bg, (ViewGroup) recyclerView.getParent(), false);
+        netErrView = ((Activity)recyclerView.getContext()).getLayoutInflater().inflate(R.layout.neterr_bg, (ViewGroup) recyclerView.getParent(), false);
+        netErrView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(reloadListener != null) {
+                    reloadListener.reload();
+                }
+            }
+        });
+    }
+
+    public void setReloadListener(ReloadListener reloadListener) {
+        this.reloadListener = reloadListener;
+    }
+
+    private ReloadListener reloadListener;
+    public interface ReloadListener {
+        public void reload();
     }
 
 
@@ -93,6 +110,17 @@ public abstract class MyBaseQuickAdapter<T> extends BaseQuickAdapter<T, BaseView
         super.setNewData(data);
         if (data == null || data.size() <= 0) {
             setEmptyView(notDataView);
+        }
+    }
+    public void setNewData(@Nullable List<T> data,Boolean isErr) {
+        super.setNewData(data);
+        if (data == null || data.size() <= 0) {
+            if(isErr) {
+                setEmptyView(netErrView);
+            }else {
+                setEmptyView(notDataView);
+            }
+
         }
     }
 }

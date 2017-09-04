@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 
 import com.jaydenxiao.common.commonutils.HawkUtil;
+import com.jaydenxiao.common.commonutils.LogUtils;
 import com.jaydenxiao.common.commonutils.ToastUitl;
 import com.jaydenxiao.common.commonwidget.LoadingView;
 import com.little.easymv.app.MyApplication;
@@ -101,8 +102,8 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
 
     @Override
     public void onNext(final T data) {
-        closeRefresh();
         _onNext((T) data);
+        closeRefresh();
     }
 
     private void closeRefresh() {
@@ -144,6 +145,7 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
 
     protected void _onError(String message) {
         ToastUitl.showSafeShort(message);
+        LogUtils.loge("message = " + message);
         //                SnackBarUtil.showSafe(message,SnackBarUtil.WARN);
     }
 }

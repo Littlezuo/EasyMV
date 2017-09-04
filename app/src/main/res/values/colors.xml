@@ -53,6 +53,7 @@
     <color name="dark_green">#0aa485</color>
 
     <color name="window_background">#eaeaea</color>
+    <color name="divider">#eeeeee</color>
     <color name="bangumi_badge_gary">#e58B8B8C</color>
     <color name="nav_head_image_background">#F8668D</color>
     <color name="nav_head_round_background">#FDC7D6</color>

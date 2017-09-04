@@ -3,7 +3,9 @@ package com.jaydenxiao.common.httpconfig.exception;
 import android.net.ParseException;
 
 import com.google.gson.JsonParseException;
+import com.jaydenxiao.common.baseapp.BaseApplication;
 import com.jaydenxiao.common.commonutils.LogUtils;
+import com.jaydenxiao.common.commonutils.NetWorkUtils;
 import com.jaydenxiao.common.httpconfig.Throwable;
 
 import org.apache.http.conn.ConnectTimeoutException;
@@ -31,98 +33,105 @@ public class RetrofitException {
     public static Throwable handleException(java.lang.Throwable e) {
         LogUtils.loge("RetrofitException", e.getMessage());
         Throwable ex;
-        if (e instanceof HttpException) {
-            HttpException httpException = (HttpException)e;
-            ex = new Throwable(e, ERROR.HTTP_ERROR);    //协议出错
-            switch (httpException.code()) {
-                case UNAUTHORIZED:  //一般是token过期,在这里处理可以,抛一个token过期的异常也可以,retry可以解决
-                    ex.setMessage("token过期");
-//                    FrameWorkConfig.frameworkSupport.onSessionInvaild();
-                    break;
-                case FORBIDDEN:
-                    ex.setMessage("请求是被禁止的");
-                    break;
-                case NOT_FOUND:
-                    ex.setMessage("HTTP NOT FOUND");
-                    break;
-                case REQUEST_TIMEOUT:
-                    ex.setMessage("请求超时");
-                    break;
-                case GATEWAY_TIMEOUT:
-                    ex.setMessage("网关超时");
-                    break;
-                case INTERNAL_SERVER_ERROR:
-                    ex.setMessage("内部服务器错误");
-                    break;
-                case BAD_GATEWAY:
-                    ex.setMessage("无效网关");
-                    break;
-                case SERVICE_UNAVAILABLE:
-                    ex.setMessage("找不到服务器");
-                    break;
-                case ACCESS_DENIED:
-                    ex.setMessage("拒绝访问");
-                    break;
-                default:
-                    ex.setMessage("网络错误");
-                    break;
+        if(NetWorkUtils.isNetConnected(BaseApplication.getAppContext())) {
+            if (e instanceof HttpException) {
+                HttpException httpException = (HttpException)e;
+                ex = new Throwable(e, ERROR.HTTP_ERROR);    //协议出错
+                switch (httpException.code()) {
+                    case UNAUTHORIZED:  //一般是token过期,在这里处理可以,抛一个token过期的异常也可以,retry可以解决
+                        ex.setMessage("token过期");
+                        //                    FrameWorkConfig.frameworkSupport.onSessionInvaild();
+                        break;
+                    case FORBIDDEN:
+                        ex.setMessage("请求是被禁止的");
+                        break;
+                    case NOT_FOUND:
+                        ex.setMessage("HTTP NOT FOUND");
+                        break;
+                    case REQUEST_TIMEOUT:
+                        ex.setMessage("请求超时");
+                        break;
+                    case GATEWAY_TIMEOUT:
+                        ex.setMessage("网关超时");
+                        break;
+                    case INTERNAL_SERVER_ERROR:
+                        ex.setMessage("内部服务器错误");
+                        break;
+                    case BAD_GATEWAY:
+                        ex.setMessage("无效网关");
+                        break;
+                    case SERVICE_UNAVAILABLE:
+                        ex.setMessage("找不到服务器");
+                        break;
+                    case ACCESS_DENIED:
+                        ex.setMessage("拒绝访问");
+                        break;
+                    default:
+                        ex.setMessage("网络错误");
+                        break;
+                }
+                return ex;
+            } else if (e instanceof ServerException) {  //服务器错误,直接返回服务器错误信息
+                ServerException resultException = (ServerException) e;
+                ex = new Throwable(resultException, resultException.code);
+                ex.setMessage(resultException.message);
+                return ex;
+            } else if (e instanceof JsonParseException
+                    || e instanceof JSONException
+                    || e instanceof ParseException) {
+                ex = new Throwable(e, ERROR.PARSE_ERROR);
+                ex.setMessage("解析错误");
+                return ex;
+            } else if (e instanceof ConnectException) {
+                ex = new Throwable(e, ERROR.NETWORD_ERROR);
+                ex.setMessage("连接失败");
+                return ex;
+            } else if (e instanceof javax.net.ssl.SSLHandshakeException) {
+                ex = new Throwable(e, ERROR.SSL_ERROR);
+                ex.setMessage("证书验证失败");
+                return ex;
+            } else if (e instanceof java.security.cert.CertPathValidatorException) {
+                ex = new Throwable(e, ERROR.SSL_NOT_FOUND);
+                ex.setMessage("证书路径没找到");
+                return ex;
+            } else if (e instanceof ConnectTimeoutException) {
+                ex = new Throwable(e, ERROR.TIMEOUT_ERROR);
+                ex.setMessage("连接超时");
+                return ex;
+            } else if (e instanceof java.net.SocketTimeoutException) {
+                ex = new Throwable(e, ERROR.TIMEOUT_ERROR);
+                ex.setMessage("连接超时");
+                return ex;
+            } else if (e instanceof ClassCastException) {
+                ex = new Throwable(e, ERROR.FORMAT_ERROR);
+                ex.setMessage("类型转换出错");
+                return ex;
+            } else if (e instanceof NullPointerException) {
+                ex = new Throwable(e, ERROR.NULL);
+                ex.setMessage("数据有空");
+                return ex;
+            } else if (e instanceof FormatException) {
+                FormatException resultException = (FormatException) e;
+                //            ex = new Throwable(resultException, resultException.code);
+                ex = new Throwable(resultException, resultException.code);
+                ex.setMessage(resultException.message);
+                return ex;
+            }else if (e instanceof CusException) {
+                CusException resultException = (CusException) e;
+                ex = new Throwable(resultException, resultException.code);
+                ex.setMessage(resultException.message);
+                return ex;
+            } else {
+                ex = new Throwable(e, ERROR.UNKNOWN);
+                ex.setMessage(e.getMessage());
+                return ex;
             }
-            return ex;
-        } else if (e instanceof ServerException) {  //服务器错误,直接返回服务器错误信息
-            ServerException resultException = (ServerException) e;
-            ex = new Throwable(resultException, resultException.code);
-            ex.setMessage(resultException.message);
-            return ex;
-        } else if (e instanceof JsonParseException
-                || e instanceof JSONException
-                || e instanceof ParseException) {
-            ex = new Throwable(e, ERROR.PARSE_ERROR);
-            ex.setMessage("解析错误");
-            return ex;
-        } else if (e instanceof ConnectException) {
+        }else {
             ex = new Throwable(e, ERROR.NETWORD_ERROR);
-            ex.setMessage("连接失败");
-            return ex;
-        } else if (e instanceof javax.net.ssl.SSLHandshakeException) {
-            ex = new Throwable(e, ERROR.SSL_ERROR);
-            ex.setMessage("证书验证失败");
-            return ex;
-        } else if (e instanceof java.security.cert.CertPathValidatorException) {
-            ex = new Throwable(e, ERROR.SSL_NOT_FOUND);
-            ex.setMessage("证书路径没找到");
-            return ex;
-        } else if (e instanceof ConnectTimeoutException) {
-            ex = new Throwable(e, ERROR.TIMEOUT_ERROR);
-            ex.setMessage("连接超时");
-            return ex;
-        } else if (e instanceof java.net.SocketTimeoutException) {
-            ex = new Throwable(e, ERROR.TIMEOUT_ERROR);
-            ex.setMessage("连接超时");
-            return ex;
-        } else if (e instanceof ClassCastException) {
-            ex = new Throwable(e, ERROR.FORMAT_ERROR);
-            ex.setMessage("类型转换出错");
-            return ex;
-        } else if (e instanceof NullPointerException) {
-            ex = new Throwable(e, ERROR.NULL);
-            ex.setMessage("数据有空");
-            return ex;
-        } else if (e instanceof FormatException) {
-            FormatException resultException = (FormatException) e;
-//            ex = new Throwable(resultException, resultException.code);
-            ex = new Throwable(resultException, resultException.code);
-            ex.setMessage(resultException.message);
-            return ex;
-        }else if (e instanceof CusException) {
-            CusException resultException = (CusException) e;
-            ex = new Throwable(resultException, resultException.code);
-            ex.setMessage(resultException.message);
-            return ex;
-        } else {
-            ex = new Throwable(e, ERROR.UNKNOWN);
-            ex.setMessage(e.getMessage());
+            ex.setMessage("网络错误,请检查是否连接网络");
             return ex;
         }
+
     }
 
 

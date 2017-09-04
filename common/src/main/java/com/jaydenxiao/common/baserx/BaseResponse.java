@@ -12,7 +12,7 @@ public class BaseResponse<T> implements Serializable{
     /*错误信息:msg, error, message*/
     public String msg, error, message;
     /*真实数据 data或者result*/
-    public T data/*, result, ret, body*/;
+    public T data, result, ret, body;
 
     public boolean isOk() {
         return true;
@@ -59,13 +59,13 @@ public class BaseResponse<T> implements Serializable{
     }
 
 
-//    public T getResult() {
-//        return result;
-//    }
-//
-//    public void setResult(T result) {
-//        this.result = result;
-//    }
+    public T getResult() {
+        return result;
+    }
+
+    public void setResult(T result) {
+        this.result = result;
+    }
 
 //    @Override
 //    public String toString() {
@@ -78,19 +78,19 @@ public class BaseResponse<T> implements Serializable{
 //                '}';
 //    }
 
-//    public T getRet() {
-//        return ret;
-//    }
-//
-//    public void setRet(T ret) {
-//        this.ret = ret;
-//    }
-//
-//    public T getBody() {
-//        return body;
-//    }
-//
-//    public void setBody(T body) {
-//        this.body = body;
-//    }
+    public T getRet() {
+        return ret;
+    }
+
+    public void setRet(T ret) {
+        this.ret = ret;
+    }
+
+    public T getBody() {
+        return body;
+    }
+
+    public void setBody(T body) {
+        this.body = body;
+    }
 }

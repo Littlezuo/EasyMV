@@ -10,6 +10,7 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
         >
         <!--android:theme="@style/AppTheme.AppBarOverlay"-->
@@ -93,8 +94,11 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/fab_margin"
         android:onClick="onClick"
+
+        app:fab_colorRipple="@color/orange_500"
+        app:backgroundTint="@color/orange_500"
         android:src="@drawable/ic_arrow_upward"
         app:layout_behavior="com.little.easymv.ui.view.MyFabBehavior"
         tools:targetApi="LOLLIPOP"/>
-    <!--android:background="@drawable/button_ripple_blue"-->
+    <!--android:background="@drawable/button_ripple_blue"     app:borderWidth="0dp"-->
 </android.support.design.widget.CoordinatorLayout>
