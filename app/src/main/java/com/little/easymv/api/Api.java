@@ -19,10 +19,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.concurrent.TimeUnit;
 
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
@@ -123,19 +120,19 @@ public class Api {
 
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        overlockCard();
-        if (sslContext != null) {
-            SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
-            builder.sslSocketFactory(sslSocketFactory);
+//        overlockCard();
+//        if (sslContext != null) {
+//            SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
+//            builder.sslSocketFactory(sslSocketFactory);
+//
+//        }
 
-        }
-
-        builder.hostnameVerifier(new HostnameVerifier() {
-            @Override
-            public boolean verify(String hostname, SSLSession session) {
-                return true;
-            }
-        });
+//        builder.hostnameVerifier(new HostnameVerifier() {
+//            @Override
+//            public boolean verify(String hostname, SSLSession session) {
+//                return true;
+//            }
+//        });
 
 
         OkHttpClient okHttpClient = builder
@@ -206,6 +203,10 @@ public class Api {
             sRetrofitManager.put(hostType, retrofitManager);
         }
         return retrofitManager.movieService;
+    }
+
+    public static ApiService getDefault() {
+        return getDefault(HostType.KaBu);
     }
 
     /**

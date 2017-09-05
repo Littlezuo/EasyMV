@@ -25,6 +25,7 @@ class RecomMV : ListViewModel() {
     }
 
     var formatRecoms = mutableListOf<FormatRecomBean>()
+//    var formatRecoms:MutableList<> = mutableListOf<FormatRecomBean>()
     fun requestNet4recom() {
         Api.getDefault(HostType.KaBu).recommend
                 .compose(RxHelper.handleErr())

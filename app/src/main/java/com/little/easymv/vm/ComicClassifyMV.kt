@@ -22,8 +22,10 @@ class ComicClassifyMV : SlideViewModel() {
     var id = -1
     var page = 0
     lateinit var title: String
-        var classifyList:List<ClassifyResponse>? = listOf<ClassifyResponse>()
-//    var classifyList = mutableListOf<ClassifyResponse>()
+//        var classifyList:List<ClassifyResponse>? = listOf<ClassifyResponse>()
+    var classifyList:MutableList<ClassifyResponse>? = mutableListOf<ClassifyResponse>()
+
+    //    var classifyList = mutableListOf<ClassifyResponse>()
 //    var classifyList: MutableList<CategoryResponse>? = null;
     //    var cateList: MutableList<CategoryResponse>? = null;
     override fun onStart() {
@@ -43,11 +45,13 @@ class ComicClassifyMV : SlideViewModel() {
     }
 
     fun requestNet4classifyDetail() {
-        Api.getDefault(HostType.KaBu).getClassify("classify/" + id + "/0/" + page + ".json")
+        Api.getDefault(HostType.KaBu)
+//                .getClassify("classify/" + id + "/0/" + page + ".json")
+                .getClassify("classify/3262/0/0.json")
                 .compose(RxHelper.handleErr())
-                .subscribe {
-                    object : BaseSubscriber<List<ClassifyResponse>>(mContext,true) {
-                        override fun _onNext(list: List<ClassifyResponse>?) {
+                .subscribe (
+                    object : BaseSubscriber<MutableList<ClassifyResponse>>(/*mContext,true*/) {
+                        override fun _onNext(list: MutableList<ClassifyResponse>?) {
                             isErr = false
                             classifyList = list
                             mVMListener.onUpdate(DEFAULT)
@@ -59,7 +63,7 @@ class ComicClassifyMV : SlideViewModel() {
                             mVMListener.onUpdate(DEFAULT)
                         }
                     }
-                }
+                )
 
     }
 

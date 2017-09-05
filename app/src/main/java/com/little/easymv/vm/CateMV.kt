@@ -6,7 +6,7 @@ import com.little.easymv.api.Api
 import com.little.easymv.api.BaseSubscriber
 import com.little.easymv.api.HostType
 import com.little.easymv.responsebean.CategoryResponse
-import kotlinx.android.synthetic.main.recy_fragment.view.*
+import kotlinx.android.synthetic.main.layout_recy.view.*
 
 /**
  * Created by Littlezuo on 2017/9/4.

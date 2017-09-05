@@ -23,6 +23,7 @@ public abstract class BaseActivity<M extends ViewModel> extends AppCompatActivit
     public M model;
     public RxManager mRxManager;
 
+    @Deprecated
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -18,17 +18,12 @@ import com.little.easymv.responsebean.RecommendResponse
  */
 
 class RecomMultiItemAdapter : MyMultiItemAdapter<FormatRecomBean> {
-    constructor( data: List<FormatRecomBean>?, recyclerView: RecyclerView) : super(data, recyclerView) {
+    constructor(data: List<FormatRecomBean>?, recyclerView: RecyclerView) : super(data, recyclerView) {
         addItemType(FormatRecomBean.BANNER, R.layout.layout_recom_banner)
         addItemType(FormatRecomBean.SIMALL_IMG, R.layout.layout_recom_small_img)
         addItemType(FormatRecomBean.BIG_IMG, R.layout.layout_recom_big_img)
         addItemType(FormatRecomBean.TITLE, R.layout.layout_recom_title)
-        if (data != null)
-            setSpanSizeLookup(object : BaseQuickAdapter.SpanSizeLookup {
-                override fun getSpanSize(gridLayoutManager: GridLayoutManager, position: Int): Int {
-                    return data?.get(position).span
-                }
-            })
+        setSapn()
     }
 
 
@@ -44,28 +39,27 @@ class RecomMultiItemAdapter : MyMultiItemAdapter<FormatRecomBean> {
     private fun setImg(helper: BaseViewHolder, item: FormatRecomBean) {
         val image = helper.getView<ImageView>(R.id.img)
 //        loadImage(mContext, image, item.childitem?.cover)
-        if (item.childitem?.cover  !=null)
-        loadImage(mContext, item.childitem?.cover!!)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+        if (item.childitem?.cover != null)
+            loadImage(mContext, item.childitem?.cover!!)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
 //                .placeholder(R.drawable.pig)
-                .placeholder(R.drawable.ic_image_loading) //设置plcaceholder imagview的size必须固定,不然会显示异常
-                .error(R.drawable.ic_empty_picture)
+                    .placeholder(R.drawable.ic_image_loading) //设置plcaceholder imagview的size必须固定,不然会显示异常
+                    .error(R.drawable.ic_empty_picture)
 //                .error(R.drawable.pig)
 //                .centerCrop()
 //                .dontAnimate()
-                .into(image)
+                    .into(image)
         helper.setText(R.id.main_title, item.childitem?.title)
         helper.setVisible(R.id.sub_title, item.hasSubTitle)
-        if (item.hasSubTitle && item.childitem?.sub_title !=null && item.childitem?.sub_title!!.isNotEmpty() ) helper.setText(R.id.sub_title, item.childitem?.sub_title)
+        if (item.hasSubTitle && item.childitem?.sub_title != null && item.childitem?.sub_title!!.isNotEmpty()) helper.setText(R.id.sub_title, item.childitem?.sub_title)
     }
 
     private fun setTitle(helper: BaseViewHolder, item: FormatRecomBean) {
-        helper.setText(R.id.title,item.title)
+        helper.setText(R.id.title, item.title)
     }
 
     //    var tips = mutableListOf<String>()
     private fun setBanner(helper: BaseViewHolder, item: FormatRecomBean) {
-
         val bgaBanner = helper.getView<BGABanner>(R.id.banner)
         bgaBanner.setAdapter(BGABanner.Adapter<ImageView, RecommendResponse.DataBean> { banner, itemView, model, position ->
             loadImage(mContext, model.cover)
@@ -78,7 +72,16 @@ class RecomMultiItemAdapter : MyMultiItemAdapter<FormatRecomBean> {
         })
 //        tips.clear()
         val tips = item.banner.data.map { it -> it.title }
-        bgaBanner.setData(item.banner.data, tips);
+        bgaBanner.setData(item.banner.data, tips)
 
+    }
+
+    fun setSapn() {
+        if (mData != null && mData!!.size > 0)
+            setSpanSizeLookup(object : BaseQuickAdapter.SpanSizeLookup {
+                override fun getSpanSize(gridLayoutManager: GridLayoutManager, position: Int): Int {
+                    return data?.get(position).span
+                }
+            })
     }
 }

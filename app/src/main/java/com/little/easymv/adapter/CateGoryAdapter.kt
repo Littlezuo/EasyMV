@@ -25,9 +25,4 @@ class CateGoryAdapter : MyBaseQuickAdapter<CategoryResponse> {
 
     }
 
-//    private fun itemClick() {
-//                        Router.from(AppManager.getAppManager().currentActivity()).anim(R.anim.anim_fragment_in, R.anim.anim_fragment_out)
-//                        .to(ComicClassifyActivity::class.java).launch()
-//    }
-
 }

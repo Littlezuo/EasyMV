@@ -12,8 +12,9 @@ import com.little.easymv.adapter.CateGoryAdapter
 import com.little.easymv.responsebean.CategoryResponse
 import com.little.easymv.vm.CateMV
 import com.little.easymv.vm.ComicClassifyMV
-import kotlinx.android.synthetic.main.recy_fragment.*
-import kotlinx.android.synthetic.main.recy_fragment.view.*
+import kotlinx.android.synthetic.main.layout_recy.*
+import kotlinx.android.synthetic.main.layout_recy.view.*
+
 
 /**
  * A simple [Fragment] subclass.
@@ -26,7 +27,7 @@ class CategoryFragment : BaseFragment<CateMV>() {
 
 
     override fun getLayoutResource(): Int {
-        return R.layout.recy_fragment
+        return R.layout.layout_recy
     }
 
     override fun lazyLoad() {
@@ -62,7 +63,7 @@ class CategoryFragment : BaseFragment<CateMV>() {
         recyVi.setLayoutManager(gridLayoutManager)
         recyVi.setAdapter(cateAdapter)
 //        refreshLayout.setOnRefreshListener(this)
-        cateAdapter?.setReloadListener { loadData() }
+        cateAdapter?.setRetryListener { loadData() }
         recyVi.addOnItemTouchListener(object : OnItemClickListener() {
             override fun onSimpleItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
                                 val item = adapter?.data?.get(position) as CategoryResponse

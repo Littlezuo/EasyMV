@@ -50,6 +50,7 @@ class RecomFragment : BaseFragment<RecomMV>(), SwipeRefreshLayout.OnRefreshListe
         rootView.recyVi.setAdapter(recomMultiItemAdapter)
         rootView.refreshLayout.initRefresh(true)
         rootView.refreshLayout.setOnRefreshListener(this)
+
     }
 
     override fun onUpdate(flag: Int) {
@@ -58,9 +59,20 @@ class RecomFragment : BaseFragment<RecomMV>(), SwipeRefreshLayout.OnRefreshListe
         }
     }
     lateinit var recomMultiItemAdapter: RecomMultiItemAdapter
+    lateinit var recomDivider:RecomDivider
+    private var initDecoration: Boolean = true
+
     private fun setData() {
-        recomMultiItemAdapter.addData(model.formatRecoms)
-        rootView.recyVi.addItemDecoration(RecomDivider(model.formatRecoms))
+        recomMultiItemAdapter.setNewData(model.formatRecoms)
+        if (model.formatRecoms.isNotEmpty() && initDecoration) {
+            initDecoration =false
+            recomMultiItemAdapter.setSapn()
+            recomDivider= RecomDivider(model.formatRecoms)
+//        rootView.recyVi.removeItemDecoration(recomDivider)
+            rootView.recyVi.addItemDecoration(recomDivider)
+        }
+
+
     }
 
 

@@ -19,7 +19,7 @@ class FavoriteFragment : BaseFragment<ViewModel>() {
     }
 
     override fun getLayoutResource(): Int {
-        return R.layout.recy_fragment
+        return R.layout.layout_recy
     }
 
 }
