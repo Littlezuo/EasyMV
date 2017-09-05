@@ -37,6 +37,10 @@ public class Router {
         return new Router(from);
     }
 
+    public static Router from() {
+        return new Router(AppManager.getAppManager().currentActivity());
+    }
+
     public Router to(Class<?> to) {
         this.to = to;
         return this;
@@ -133,7 +137,7 @@ public class Router {
     }
 
     public void launch() {
-      launch(false);
+        launch(false);
     }
 
     private Bundle getBundleData() {
@@ -166,10 +170,10 @@ public class Router {
 
                 if (requestCode < 0) {
                     from.startActivity(intent);
-                    if(finishCurrentActivity) {
+                    if (finishCurrentActivity) {
                         from.finish();
                     }
-//                    from.finish();
+                    //                    from.finish();
                 } else {
                     from.startActivityForResult(intent, requestCode);
                 }
@@ -198,4 +202,54 @@ public class Router {
         void onError(Activity from, Class<?> to, Throwable throwable);
 
     }
+
+
+
+    public static String getString(Activity context, String key, String defaultValue) {
+        String value = defaultValue;
+        //        Activity activity = AppManager.getAppManager().currentActivity();
+        Intent intent = context.getIntent();
+        if (intent != null) {
+            value = intent.getStringExtra(key);
+            Bundle extras = intent.getExtras();
+            if (extras != null) {
+                extras.getString(key, defaultValue);
+            }
+        }
+
+        return value;
+    }
+
+    /**
+     * 默认返回-1
+     * @param key
+     * @return
+     */
+    public static Integer getInt(String key) {
+        return getInt(key, -1);
+    }
+
+    public static Integer getInt(Activity activity, String key, int defaultValue) {
+        int value = defaultValue;
+        //        Activity activity = AppManager.getAppManager().currentActivity();
+        Intent intent = activity.getIntent();
+        if (intent != null) {
+            Bundle extras = intent.getExtras();
+            if (extras != null) {
+                value = extras.getInt(key, defaultValue);
+            }
+        }
+        return value;
+    }
+
+    public static Integer getInt(String key, int defaultValue) {
+       return getInt(AppManager.getAppManager().currentActivity(),key,defaultValue);
+    }
+    public static String  getString(String key, String  defaultValue) {
+       return getString(AppManager.getAppManager().currentActivity(),key,defaultValue);
+    }
+    public static String  getString(String key) {
+       return getString(AppManager.getAppManager().currentActivity(),key,"");
+    }
+
 }

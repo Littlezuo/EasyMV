@@ -6,9 +6,9 @@ import android.view.MenuItem
 import android.view.View
 import com.jaydenxiao.common.basemvvm.BaseActivity
 import com.jaydenxiao.common.commonutils.ImageLoaderUtils
-import com.little.easymv.adapter.postMessage
 import com.little.easymv.event.EventUI
 import com.little.easymv.event.TO_TOP
+import com.little.easymv.ex.postMessage
 import com.little.easymv.vm.MainMV
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.main_content.*
@@ -18,9 +18,6 @@ class MainActivity : BaseActivity<MainMV>(), NavigationView.OnNavigationItemSele
 
 
     override fun getLayoutId(): Int {
-//        StatusBarUtil.setStatusBarColor(this, com.jaydenxiao.common.R.color.colorPrimary)
-//        window.decorView.setBackgroundColor(R.color.colorPrimary)
-//        StatusBarUtil.transparencyBar(this)
         return R.layout.activity_main
     }
 

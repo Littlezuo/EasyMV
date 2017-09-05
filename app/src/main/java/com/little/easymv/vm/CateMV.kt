@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.recy_fragment.view.*
  * Created by Littlezuo on 2017/9/4.
  */
 class CateMV : ViewModel() {
-    var isErr = false
+//    var isErr = false
     override fun onStart() {
         super.onStart()
     }

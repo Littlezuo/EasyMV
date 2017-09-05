@@ -3,9 +3,7 @@ package com.jaydenxiao.common.baseapp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 
 /**
  * Created by Littlezuo on 2017/8/29.
@@ -28,11 +26,7 @@ public class RouterManager {
         context.startActivityForResult(intent,requestCode);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    public static void start4result(Activity context, Class<?> cls, int requestCode, Bundle options) {
-        Intent intent = new Intent(context, cls);
-        context.startActivityForResult(intent,requestCode,options);
-    }
+
 
     public static void start(Class<?> cls) {
         start(AppManager.getAppManager().currentActivity(),cls);

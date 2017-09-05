@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.jaydenxiao.common.R;
 import com.jaydenxiao.common.baseapp.AppManager;
 import com.jaydenxiao.common.baseevent.BindBus;
 import com.jaydenxiao.common.baseevent.EventBusUtil;
 import com.jaydenxiao.common.baserx.RxManager;
+import com.jaydenxiao.common.commonutils.StatusBarUtil;
 import com.jaydenxiao.common.commonutils.TUtil;
 
 /**
@@ -86,4 +88,16 @@ public abstract class BaseActivity<M extends ViewModel> extends AppCompatActivit
     public void onUpdate(int type) {
 
     }
+
+    public void setStatusBar() {
+        //设置状态栏为白色 , 字体颜色为深色,
+        //        StatusBarUtil.StatusBarLightMode(this,R.color.white);
+        StatusBarUtil.setStatusBarColor(this, R.color.colorPrimary);
+    }
+    public void setStatusBar(int colorid) {
+        //设置状态栏为白色 , 字体颜色为深色,
+//                StatusBarUtil.StatusBarLightMode(this,R.color.white);
+        StatusBarUtil.setStatusBarColor(this,colorid);
+    }
+
 }

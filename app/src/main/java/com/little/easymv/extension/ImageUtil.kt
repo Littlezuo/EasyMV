@@ -14,7 +14,10 @@ import com.little.easymv.constants.UrlConstants
 /**
  * Created by Littlezuo on 2017/9/1.
  */
-fun loadImage(context: Context, imageView: ImageView, url: String?) {
+fun loadImage(context: Context, imageView: ImageView?, url: String?) {
+    if (imageView == null){
+        return
+    }
     var urls = ""
     if (url != null) urls = url!!
     loadImage(context, urls)
@@ -45,8 +48,11 @@ fun loadCircleImage(context: Context, imageView: ImageView, url: String) {
             .into(imageView)
 }
 
-fun loadImage(imageView: ImageView, url: String) {
-    loadImage(imageView.context, url)
+fun loadImage(imageView: ImageView?, url: String) {
+    if (imageView == null){
+        return
+    }
+    loadImage(imageView!!.context, url)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .centerCrop()
             .placeholder(R.drawable.ic_image_loading)

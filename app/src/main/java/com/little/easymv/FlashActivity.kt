@@ -7,7 +7,7 @@ import android.animation.PropertyValuesHolder
 import com.jaydenxiao.common.baseapp.Router
 import com.jaydenxiao.common.baseevent.BindBus
 import com.jaydenxiao.common.basemvvm.BaseActivity
-import com.little.easymv.adapter.postMessage
+import com.little.easymv.ex.postMessage
 import com.little.easymv.event.EventUI
 import com.little.easymv.event.TO_MAIN
 import kotlinx.android.synthetic.main.activity_flash.*

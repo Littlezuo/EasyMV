@@ -5,13 +5,13 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemClickListener
-import com.jaydenxiao.common.baseapp.Router
 import com.jaydenxiao.common.basemvvm.BaseFragment
 import com.jaydenxiao.common.basemvvm.ViewModel
-import com.little.easymv.ComicClassifyActivity
 import com.little.easymv.R
 import com.little.easymv.adapter.CateGoryAdapter
+import com.little.easymv.responsebean.CategoryResponse
 import com.little.easymv.vm.CateMV
+import com.little.easymv.vm.ComicClassifyMV
 import kotlinx.android.synthetic.main.recy_fragment.*
 import kotlinx.android.synthetic.main.recy_fragment.view.*
 
@@ -22,6 +22,7 @@ class CategoryFragment : BaseFragment<CateMV>() {
 //    fun onRefresh() {
 //
 //    }
+
 
 
     override fun getLayoutResource(): Int {
@@ -63,19 +64,19 @@ class CategoryFragment : BaseFragment<CateMV>() {
 //        refreshLayout.setOnRefreshListener(this)
         cateAdapter?.setReloadListener { loadData() }
         recyVi.addOnItemTouchListener(object : OnItemClickListener() {
-            override fun onSimpleItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-                ComicClassifyActivity.open()
+            override fun onSimpleItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+                                val item = adapter?.data?.get(position) as CategoryResponse
+                                ComicClassifyMV.open(item.tag_id,item.title)
 
             }
         })
 
     }
 
-
     companion object {
-        fun newInstance(): Fragment {
-            return CategoryFragment()
+        fun newInstance():CategoryFragment {
+            return CategoryFragment();
         }
-
     }
+
 }

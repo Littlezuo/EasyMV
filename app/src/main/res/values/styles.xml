@@ -24,6 +24,10 @@
         <item name="android:windowBackground">@drawable/splash_layout</item>
     </style>
 
+    <style name="AppTheme.NoActionBar.Normal">
+
+    </style>
+
     <!--<style name="AppTheme.NoActionBar.Slide">-->
         <!--<item name="android:windowExitAnimation">@anim/anim_fragment_in</item>-->
         <!--<item name="android:imeExtractEnterAnimation">@anim/anim_fragment_out</item>-->

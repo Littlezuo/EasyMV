@@ -17,6 +17,7 @@ import com.jaydenxiao.common.baserx.RxManager;
 
 public class ViewModel  {
 //    public static boolean isErr = false;
+    public boolean isErr = false;
     public static final int DEFAULT = 0x111;
     public static final int REFRESH = 0x222;
     public static final int LOADMORE = 0x333;
@@ -43,6 +44,7 @@ public class ViewModel  {
                         EventBusUtil.register(this);
 //            RxBus.getDefault().register(this);
         }
+
     }
 
     public VMListener mVMListener;

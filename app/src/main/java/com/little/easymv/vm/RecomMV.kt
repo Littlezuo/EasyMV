@@ -2,11 +2,11 @@ package com.little.easymv.vm
 
 import com.jaydenxiao.common.baserx.RxHelper
 import com.little.easymv.adapter.FormatRecomBean
-import com.little.easymv.adapter.formatRecom
 import com.little.easymv.api.Api
 import com.little.easymv.api.BaseSubscriber
 import com.little.easymv.api.HostType
 import com.little.easymv.base.ListViewModel
+import com.little.easymv.ex.formatRecom
 import com.little.easymv.responsebean.RecommendResponse
 import kotlinx.android.synthetic.main.fragment_recom.view.*
 
@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_recom.view.*
  * Created by Littlezuo on 2017/8/31.
  */
 class RecomMV : ListViewModel() {
-    var isErr = false
+//    var isErr = false
     override fun onStart() {
         super.onStart()
 

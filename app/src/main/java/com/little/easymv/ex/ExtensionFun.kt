@@ -1,6 +1,7 @@
-package com.little.easymv.adapter
+package com.little.easymv.ex
 
 import com.jaydenxiao.common.baseevent.EventBusUtil
+import com.little.easymv.adapter.FormatRecomBean
 import com.little.easymv.responsebean.RecommendResponse
 
 /**
