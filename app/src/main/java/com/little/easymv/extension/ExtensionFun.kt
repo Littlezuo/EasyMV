@@ -1,4 +1,4 @@
-package com.little.easymv.ex
+package com.little.easymv.extension
 
 import com.jaydenxiao.common.baseevent.EventBusUtil
 import com.little.easymv.adapter.FormatRecomBean

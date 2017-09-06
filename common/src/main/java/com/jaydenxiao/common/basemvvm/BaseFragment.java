@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +50,7 @@ public abstract class BaseFragment<M extends ViewModel> extends Fragment impleme
         if (rootView==null) {
             rootView = inflater.inflate(getLayoutResource(), container, false);
         }
-        mContext = getActivity();
+        mContext = (BaseActivity) getActivity();
         mRxManager = new RxManager();
         if(this.getClass().isAnnotationPresent(BindBus.class)) {
             EventBusUtil.register(this);
@@ -87,7 +86,7 @@ public abstract class BaseFragment<M extends ViewModel> extends Fragment impleme
     protected abstract int getLayoutResource();
 
     protected boolean isPrepared = false;
-    protected boolean isVisible;
+    public boolean isVisible;
 
     /**
      * 在这里实现Fragment数据的缓加载.
@@ -130,14 +129,15 @@ public abstract class BaseFragment<M extends ViewModel> extends Fragment impleme
 
     }
 
-    protected FragmentActivity mContext;
+    protected BaseActivity mContext;
 
     protected void setModel() {
         model = TUtil.getT(this, 0);
         if (model != null) {
             model.onStart();
-            mContext = getActivity();
+//            mContext = (BaseActivity) getActivity();
             model.mContext = mContext;
+            model.mFragment = this;
             model.mRxManager = mRxManager;
 //            model.isVisiable = isVisible;
             model.rootView = rootView;

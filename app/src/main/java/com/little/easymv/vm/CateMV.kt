@@ -1,18 +1,22 @@
 package com.little.easymv.vm
 
-import com.jaydenxiao.common.basemvvm.ViewModel
 import com.jaydenxiao.common.baserx.RxHelper
 import com.little.easymv.api.Api
 import com.little.easymv.api.BaseSubscriber
 import com.little.easymv.api.HostType
+import com.little.easymv.base.ListViewModel
 import com.little.easymv.responsebean.CategoryResponse
 import kotlinx.android.synthetic.main.layout_recy.view.*
 
 /**
  * Created by Littlezuo on 2017/9/4.
  */
-class CateMV : ViewModel() {
-//    var isErr = false
+class CateMV : ListViewModel() {
+    override fun scroll2top() {
+        rootView.recyVi.smoothScrollToPosition(0)
+    }
+
+    //    var isErr = false
     override fun onStart() {
         super.onStart()
     }

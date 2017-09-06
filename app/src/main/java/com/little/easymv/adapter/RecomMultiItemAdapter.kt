@@ -19,13 +19,16 @@ import com.little.easymv.responsebean.RecommendResponse
 
 class RecomMultiItemAdapter : MyMultiItemAdapter<FormatRecomBean> {
     constructor(data: List<FormatRecomBean>?, recyclerView: RecyclerView) : super(data, recyclerView) {
+//        LogUtils.loge("constructor....")
         addItemType(FormatRecomBean.BANNER, R.layout.layout_recom_banner)
         addItemType(FormatRecomBean.SIMALL_IMG, R.layout.layout_recom_small_img)
         addItemType(FormatRecomBean.BIG_IMG, R.layout.layout_recom_big_img)
         addItemType(FormatRecomBean.TITLE, R.layout.layout_recom_title)
         setSapn()
     }
-
+    init {
+//        LogUtils.loge("init....")
+    }
 
     override fun convert(helper: BaseViewHolder, item: FormatRecomBean) {
         when (helper.itemViewType) {

@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
     android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
+    android:layout_margin="@dimen/cardview_margin"
+    android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.little.easymv.ui.view.SquareImagView
-        android:id="@+id/category_iv"
-        android:layout_width="wrap_content"
-        android:scaleType="fitXY"
-        android:layout_height="wrap_content"
-        android:background="#ff0"
-        android:layout_gravity="center"/>
+<com.little.easymv.ui.view.SquareImagView
+    android:id="@+id/category_iv"
+    android:layout_width="match_parent"
+
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android"/>
+    <!--android:scaleType="fitCenter"-->
 
     <!--<TextView-->
         <!--android:gravity="center"-->

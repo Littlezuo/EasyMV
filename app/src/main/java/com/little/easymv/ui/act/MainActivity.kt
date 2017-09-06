@@ -1,4 +1,4 @@
-package com.little.easymv
+package com.little.easymv.ui.act
 
 import android.support.design.widget.NavigationView
 import android.support.v7.app.ActionBarDrawerToggle
@@ -6,9 +6,11 @@ import android.view.MenuItem
 import android.view.View
 import com.jaydenxiao.common.basemvvm.BaseActivity
 import com.jaydenxiao.common.commonutils.ImageLoaderUtils
+import com.little.easymv.HomePageAdapter
+import com.little.easymv.R
 import com.little.easymv.event.EventUI
 import com.little.easymv.event.TO_TOP
-import com.little.easymv.ex.postMessage
+import com.little.easymv.extension.postMessage
 import com.little.easymv.vm.MainMV
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.main_content.*

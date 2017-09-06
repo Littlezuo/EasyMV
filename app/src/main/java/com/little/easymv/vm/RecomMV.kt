@@ -6,7 +6,7 @@ import com.little.easymv.api.Api
 import com.little.easymv.api.BaseSubscriber
 import com.little.easymv.api.HostType
 import com.little.easymv.base.ListViewModel
-import com.little.easymv.ex.formatRecom
+import com.little.easymv.extension.formatRecom
 import com.little.easymv.responsebean.RecommendResponse
 import kotlinx.android.synthetic.main.fragment_recom.view.*
 

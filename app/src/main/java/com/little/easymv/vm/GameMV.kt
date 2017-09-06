@@ -5,6 +5,7 @@ import com.little.easymv.api.BaseSubscriber
 import com.little.easymv.api.HostType
 import com.little.easymv.base.ListViewModel
 import com.little.easymv.responsebean.SubjectResopnse
+import kotlinx.android.synthetic.main.fragment_game.view.*
 
 /**
  * Created by Littlezuo on 2017/9/4.
@@ -16,7 +17,7 @@ class GameMV : ListViewModel() {
     }
 
     override fun scroll2top() {
-
+        rootView.recyVi.smoothScrollToPosition(0)
     }
 
      var gameList: MutableList<SubjectResopnse>? = null;

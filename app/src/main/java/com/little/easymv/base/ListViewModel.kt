@@ -24,7 +24,6 @@ abstract class ListViewModel : ViewModel() {
     }
 
 
-
     abstract fun scroll2top()
 
     override fun onDestory() {
@@ -33,18 +32,22 @@ abstract class ListViewModel : ViewModel() {
         EventBusUtil.unregister(this)
     }
 
-//    companion object {
+    //    companion object {
 //        val TO_TOP = 0x99919
 //    }
 //
     @Subscribe
     fun onEvent(eventUI: EventUI) {
         if (eventUI.is2top()) {
-            scroll2top()
+            if (mFragment != null) {
+                if (mFragment.isVisible)
+                    scroll2top()
+            } else {
+                scroll2top()
+            }
         }
+
     }
-
-
 
 
 }

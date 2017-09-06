@@ -41,6 +41,11 @@ public class Router {
         return new Router(AppManager.getAppManager().currentActivity());
     }
 
+    public static Router fromWithAnim() {
+        return new Router(AppManager.getAppManager().currentActivity()).anim(R.anim.anim_fragment_in, R.anim.anim_fragment_out);
+    }
+
+
     public Router to(Class<?> to) {
         this.to = to;
         return this;
@@ -204,7 +209,6 @@ public class Router {
     }
 
 
-
     public static String getString(Activity context, String key, String defaultValue) {
         String value = defaultValue;
         //        Activity activity = AppManager.getAppManager().currentActivity();
@@ -222,6 +226,7 @@ public class Router {
 
     /**
      * 默认返回-1
+     *
      * @param key
      * @return
      */
@@ -243,13 +248,15 @@ public class Router {
     }
 
     public static Integer getInt(String key, int defaultValue) {
-       return getInt(AppManager.getAppManager().currentActivity(),key,defaultValue);
+        return getInt(AppManager.getAppManager().currentActivity(), key, defaultValue);
     }
-    public static String  getString(String key, String  defaultValue) {
-       return getString(AppManager.getAppManager().currentActivity(),key,defaultValue);
+
+    public static String getString(String key, String defaultValue) {
+        return getString(AppManager.getAppManager().currentActivity(), key, defaultValue);
     }
-    public static String  getString(String key) {
-       return getString(AppManager.getAppManager().currentActivity(),key,"");
+
+    public static String getString(String key) {
+        return getString(AppManager.getAppManager().currentActivity(), key, "");
     }
 
 }

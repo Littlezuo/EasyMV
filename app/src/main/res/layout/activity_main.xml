@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:openDrawer="start"
     android:id="@+id/dl_main_drawer"
-    tools:context="com.little.easymv.MainActivity">
+    tools:context="com.little.easymv.ui.act.MainActivity">
     <include layout="@layout/main_content"/>
 
     <android.support.design.widget.NavigationView

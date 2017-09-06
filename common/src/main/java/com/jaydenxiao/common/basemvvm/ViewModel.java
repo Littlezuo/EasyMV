@@ -1,6 +1,5 @@
 package com.jaydenxiao.common.basemvvm;
 
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
 import com.jaydenxiao.common.baseevent.BindBus;
@@ -22,9 +21,10 @@ public class ViewModel  {
     public static final int REFRESH = 0x222;
     public static final int LOADMORE = 0x333;
     public static final int ERROR = 0x333;
-    public FragmentActivity mContext;
+    public BaseActivity mContext;
     public RxManager mRxManager;
     public View rootView;
+    public BaseFragment mFragment;
     //    public boolean isVisiable = true;
 
     public void onDestory() {

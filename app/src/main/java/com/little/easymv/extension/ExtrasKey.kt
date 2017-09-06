@@ -1,4 +1,4 @@
-package com.little.easymv.ex
+package com.little.easymv.extension
 
 /**
  * Created by Littlezuo on 2017/9/5.

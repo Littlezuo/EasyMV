@@ -26,7 +26,7 @@
         android:theme="@style/AppTheme.NoActionBar"
         tools:replace="android:theme">
         <activity
-            android:name=".FlashActivity"
+            android:name=".ui.act.FlashActivity"
             android:theme="@style/AppTheme.NoActionBar.FULL">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -35,11 +35,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.act.MainActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar.BG">
         </activity>
-        <activity android:name=".ComicClassifyActivity" >
+        <activity android:name=".ui.act.ComicClassifyActivity">
+        </activity>
+        <activity android:name=".ui.act.ComicDesActivity">
         </activity>
     </application>
 

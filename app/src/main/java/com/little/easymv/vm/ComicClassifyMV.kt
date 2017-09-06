@@ -3,14 +3,15 @@ package com.little.easymv.vm
 import com.jaydenxiao.common.baseapp.AppManager
 import com.jaydenxiao.common.baseapp.Router
 import com.jaydenxiao.common.basemvvm.SlideViewModel
+import com.jaydenxiao.common.basemvvm.ViewModel
 import com.jaydenxiao.common.baserx.RxHelper
-import com.little.easymv.ComicClassifyActivity
+import com.little.easymv.ui.act.ComicClassifyActivity
 import com.little.easymv.R
 import com.little.easymv.api.Api
 import com.little.easymv.api.BaseSubscriber
 import com.little.easymv.api.HostType
-import com.little.easymv.ex.EXTRA_COMIC_ID
-import com.little.easymv.ex.EXTRA_COMIC_TITLE
+import com.little.easymv.extension.EXTRA_COMIC_ID
+import com.little.easymv.extension.EXTRA_COMIC_TITLE
 import com.little.easymv.responsebean.ClassifyResponse
 
 /**
@@ -22,8 +23,8 @@ class ComicClassifyMV : SlideViewModel() {
     var id = -1
     var page = 0
     lateinit var title: String
-//        var classifyList:List<ClassifyResponse>? = listOf<ClassifyResponse>()
-    var classifyList:MutableList<ClassifyResponse>? = mutableListOf<ClassifyResponse>()
+    //        var classifyList:List<ClassifyResponse>? = listOf<ClassifyResponse>()
+    var classifyList: MutableList<ClassifyResponse>? = mutableListOf<ClassifyResponse>()
 
     //    var classifyList = mutableListOf<ClassifyResponse>()
 //    var classifyList: MutableList<CategoryResponse>? = null;
@@ -32,6 +33,7 @@ class ComicClassifyMV : SlideViewModel() {
         super.onStart()
         id = Router.getInt(EXTRA_COMIC_ID)
         title = Router.getString(EXTRA_COMIC_TITLE)
+//        mContext.tv_title.text = title
     }
 
     companion object {
@@ -45,26 +47,31 @@ class ComicClassifyMV : SlideViewModel() {
     }
 
     fun requestNet4classifyDetail() {
-        Api.getDefault(HostType.KaBu)
-//                .getClassify("classify/" + id + "/0/" + page + ".json")
-                .getClassify("classify/3262/0/0.json")
-                .compose(RxHelper.handleErr())
-                .subscribe (
-                    object : BaseSubscriber<MutableList<ClassifyResponse>>(/*mContext,true*/) {
-                        override fun _onNext(list: MutableList<ClassifyResponse>?) {
-                            isErr = false
-                            classifyList = list
-                            mVMListener.onUpdate(DEFAULT)
-                        }
+        val value: BaseSubscriber<MutableList<ClassifyResponse>>
 
-                        override fun _onError(message: String?) {
-                            super._onError(message)
-                            isErr = true
-                            mVMListener.onUpdate(DEFAULT)
+        Api.getDefault(HostType.KaBu)
+                .getClassify("classify/" + id + "/0/" + page + ".json")
+//                .getClassify("classify/3262/0/0.json")
+                .compose(RxHelper.handleErr())
+                .subscribe(
+                        object : BaseSubscriber<MutableList<ClassifyResponse>>(mContext, if (page == 0) true else false) {
+                            override fun _onNext(list: MutableList<ClassifyResponse>?) {
+                                isErr = false
+                                classifyList = list
+                                if (page == 0) mVMListener.onUpdate(ViewModel.REFRESH) else mVMListener.onUpdate(ViewModel.LOADMORE)
+
+                            }
+
+                            override fun _onError(message: String?) {
+                                super._onError(message)
+                                isErr = true
+                                if (page == 0) mVMListener.onUpdate(ViewModel.REFRESH) else mVMListener.onUpdate(ViewModel.LOADMORE)
+                            }
                         }
-                    }
                 )
 
+
     }
+
 
 }

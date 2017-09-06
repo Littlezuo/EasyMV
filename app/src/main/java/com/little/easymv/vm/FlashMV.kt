@@ -1,4 +1,4 @@
-package com.little.easymv
+package com.little.easymv.vm
 
 import com.jaydenxiao.common.basemvvm.ViewModel
 

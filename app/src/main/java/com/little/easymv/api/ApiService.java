@@ -49,7 +49,7 @@ public interface ApiService {
     @GET("classify/{tag_id}/0/{page}.json")
     Observable<List<ClassifyResponse>> getClassify(@Path("tag_id") int tagid,@Path("page")int page);
 
-    @Headers("Referer:http://images.dmzj.com/")
+//    @Headers("Referer:http://images.dmzj.com/")
     @GET("{url}")
     Observable<List<ClassifyResponse>> getClassify(@Path("url") String url);
 
