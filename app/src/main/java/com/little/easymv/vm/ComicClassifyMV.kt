@@ -5,7 +5,6 @@ import com.jaydenxiao.common.baseapp.Router
 import com.jaydenxiao.common.basemvvm.SlideViewModel
 import com.jaydenxiao.common.basemvvm.ViewModel
 import com.jaydenxiao.common.baserx.RxHelper
-import com.little.easymv.ui.act.ComicClassifyActivity
 import com.little.easymv.R
 import com.little.easymv.api.Api
 import com.little.easymv.api.BaseSubscriber
@@ -13,6 +12,7 @@ import com.little.easymv.api.HostType
 import com.little.easymv.extension.EXTRA_COMIC_ID
 import com.little.easymv.extension.EXTRA_COMIC_TITLE
 import com.little.easymv.responsebean.ClassifyResponse
+import com.little.easymv.ui.act.ComicClassifyActivity
 
 /**
  * Created by Littlezuo on 2017/9/4.
@@ -50,7 +50,8 @@ class ComicClassifyMV : SlideViewModel() {
         val value: BaseSubscriber<MutableList<ClassifyResponse>>
 
         Api.getDefault(HostType.KaBu)
-                .getClassify("classify/" + id + "/0/" + page + ".json")
+//                .getClassify("classify/" + id + "/0/" + page + ".json")
+                .getClassify(id,page)
 //                .getClassify("classify/3262/0/0.json")
                 .compose(RxHelper.handleErr())
                 .subscribe(

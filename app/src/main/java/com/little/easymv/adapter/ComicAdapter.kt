@@ -1,11 +1,11 @@
 package com.little.easymv.adapter
 
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.chad.library.adapter.base.BaseViewHolder
 import com.jaydenxiao.common.baseadapter.MyBaseQuickAdapter
-import com.jaydenxiao.common.commonutils.LogUtils
 import com.little.easymv.R
 import com.little.easymv.extension.loadImage
 import com.little.easymv.responsebean.ClassifyResponse
@@ -18,8 +18,8 @@ class ComicAdapter : MyBaseQuickAdapter<ClassifyResponse> {
 
     }
 
-    override fun convert(helper: BaseViewHolder?, item: ClassifyResponse) {
-        LogUtils.loge("helper $helper")
+    override fun convert(helper: BaseViewHolder?, itemView: View, item: ClassifyResponse) {
+//        LogUtils.loge("helper $helper")
         val imagView = helper?.getView<ImageView>(R.id.category_iv)
         loadImage(mContext, item.cover)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

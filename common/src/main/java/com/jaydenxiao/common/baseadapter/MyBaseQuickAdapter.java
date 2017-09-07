@@ -130,4 +130,11 @@ public abstract class MyBaseQuickAdapter<T> extends BaseQuickAdapter<T, BaseView
 
         }
     }
+
+    @Override
+    protected void convert(BaseViewHolder helper, T item) {
+        convert(helper,helper.itemView,item);
+    }
+
+    protected abstract void convert(BaseViewHolder helper, View itemView, T bean);
 }

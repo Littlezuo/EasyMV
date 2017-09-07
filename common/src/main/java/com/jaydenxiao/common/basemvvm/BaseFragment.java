@@ -62,13 +62,13 @@ public abstract class BaseFragment<M extends ViewModel> extends Fragment impleme
         }
         isPrepared = true;
         isGolazyLoad();
-        LogUtils.loge("onCreateView ==" + this);
+//        LogUtils.loge("onCreateView ==" + this);
         return rootView;
     }
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        LogUtils.loge("onViewCreated ==" + this);
+//        LogUtils.loge("onViewCreated ==" + this);
         initData();
     }
 

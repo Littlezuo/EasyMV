@@ -5,7 +5,7 @@ import com.little.easymv.responsebean.AuthorDesResponse;
 import com.little.easymv.responsebean.CategoryResponse;
 import com.little.easymv.responsebean.ClassifyResponse;
 import com.little.easymv.responsebean.ComicPageResponse;
-import com.little.easymv.responsebean.ComicResponse;
+import com.little.easymv.responsebean.ComicResponse1;
 import com.little.easymv.responsebean.HotResponse;
 import com.little.easymv.responsebean.RecommendResponse;
 import com.little.easymv.responsebean.SearchResponse;
@@ -33,7 +33,7 @@ public interface ApiService {
 
     @Headers("Referer:http://images.dmzj.com/")
     @GET("{url}")
-    Observable<ComicResponse> getComic(@Path("url") String url);
+    Observable<ComicResponse1> getComic(@Path("url") String url);
 
     @Headers("Referer:http://images.dmzj.com/")
     @GET("0/category.json")

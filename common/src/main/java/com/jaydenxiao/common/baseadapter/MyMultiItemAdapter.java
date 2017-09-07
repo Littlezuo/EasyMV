@@ -13,7 +13,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.jaydenxiao.common.R;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -43,8 +42,13 @@ public abstract class MyMultiItemAdapter<T extends MultiItemEntity> extends Base
     }
 
 
-    @Override
-    public void addData(@NonNull Collection<? extends T> newData) {
+
+    public void addData(@NonNull List<T> newData) {
+        this.addData(newData,false);
+
+    }
+
+    public void addData(@Nullable List<T> newData,Boolean isErr) {
         super.addData(newData);
         if (mData == null || mData.size() <= 0) {
             if (newData == null || newData.size() <= 0) {
@@ -52,7 +56,11 @@ public abstract class MyMultiItemAdapter<T extends MultiItemEntity> extends Base
             }
         } else {
             if (newData == null || newData.size() <= 0) {
-                loadMoreEnd();
+                if(isErr) {
+                    loadMoreFail();
+                }else {
+                    loadMoreEnd();
+                }
             } else {
                 loadMoreComplete();
             }
@@ -76,4 +84,23 @@ public abstract class MyMultiItemAdapter<T extends MultiItemEntity> extends Base
             setEmptyView(notDataView);
         }
     }
+
+    public void setNewData(@Nullable List<T> data, Boolean isErr) {
+        super.setNewData(data);
+        if (data == null || data.size() <= 0) {
+            if (isErr) {
+                setEmptyView(netErrView);
+            } else {
+                setEmptyView(notDataView);
+            }
+
+        }
+    }
+
+    @Override
+    protected void convert(BaseViewHolder helper, T item) {
+        convert(helper,helper.itemView,item);
+    }
+
+    protected abstract void convert(BaseViewHolder helper, View itemView, T bean);
 }

@@ -86,7 +86,7 @@ class MoreTextView : LinearLayout {
 
     private var maxLine: Int = 2
 
-    private var text: String? = ""
+    private var text: String = ""
 
     private fun initWithAttrs(context: Context, attrs: AttributeSet?) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.MoreTextStyle)
@@ -94,6 +94,7 @@ class MoreTextView : LinearLayout {
         textSize = typedArray.getDimensionPixelSize(R.styleable.MoreTextStyle_textSize, defaultTextSize)
         maxLine = typedArray.getInt(R.styleable.MoreTextStyle_maxLine, defaultLine)
         text = typedArray.getString(R.styleable.MoreTextStyle_text)
+        bindTextView(textColor,textSize.toFloat(),maxLine,text)
         typedArray.recycle()
     }
 
@@ -136,7 +137,10 @@ class MoreTextView : LinearLayout {
     }
 
     fun setText(charSequence: CharSequence) {
-        contentView.text = charSequence
+        if (charSequence != null) {
+            contentView.text = charSequence
+
+        }
     }
 
 }

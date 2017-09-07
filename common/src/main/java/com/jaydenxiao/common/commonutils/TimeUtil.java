@@ -286,7 +286,10 @@ public class TimeUtil {
      * @param format 格式化字符串，如："yyyy-MM-dd HH:mm:ss"
      * @return String 日期时间字符串
      */
-    public static String getStringByFormat(long milliseconds, String format) {
+    public static String getStringByFormat(Long milliseconds, String format) {
+        if(milliseconds == null) {
+            return null;
+        }
         String thisDateTime = null;
         try {
             SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat(format);
@@ -296,6 +299,22 @@ public class TimeUtil {
         }
         return thisDateTime;
     }
+
+
+    /**
+     * 描述：获取seconds表示的日期时间的字符串.
+     *
+     * @param format 格式化字符串，如："yyyy-MM-dd HH:mm:ss"
+     * @return String 日期时间字符串
+     */
+    public static String getStringByFormatSec(Long seconds, String format) {
+        if(seconds == null) {
+            return null;
+        }
+        return getStringByFormat(seconds*1000,format);
+    }
+
+
 
     /**
      * 描述：获取表示当前日期时间的字符串.

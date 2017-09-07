@@ -2,6 +2,7 @@ package com.little.easymv.adapter
 
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.widget.ImageView
 import cn.bingoogolapple.bgabanner.BGABanner
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -30,7 +31,7 @@ class RecomMultiItemAdapter : MyMultiItemAdapter<FormatRecomBean> {
 //        LogUtils.loge("init....")
     }
 
-    override fun convert(helper: BaseViewHolder, item: FormatRecomBean) {
+    override fun convert(helper: BaseViewHolder, itemView: View, item: FormatRecomBean) {
         when (helper.itemViewType) {
             FormatRecomBean.BANNER -> setBanner(helper, item)
             FormatRecomBean.TITLE -> setTitle(helper, item)

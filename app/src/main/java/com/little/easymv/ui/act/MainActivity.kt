@@ -29,7 +29,12 @@ class MainActivity : BaseActivity<MainMV>(), NavigationView.OnNavigationItemSele
     }
 
     override fun initData() {
+//        val list = listOf<String>("1", "2", "3", "4")
+//        val take = list.take(5)
+//        LogUtils.loge("take -- $take  || list-- $list" )
         initView()
+
+
     }
 
 

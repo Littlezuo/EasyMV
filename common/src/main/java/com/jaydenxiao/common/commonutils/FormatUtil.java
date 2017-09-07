@@ -320,5 +320,27 @@ public class FormatUtil {
     public static String checkValue(String str) {
         return TextUtils.isEmpty(str)?"":str;
     }
+
+    /**
+     *
+     * @param num
+     * @param digit
+     * @return
+     */
+    public static String conNum(Long num, Integer digit) {
+        if(num == null) {
+            return "";
+        }
+        if (num < 100000) {
+            return num + "";
+        }
+        String unit = "万";
+        double newNum = num / 10000.0;
+        if (digit != null) {
+            String numStr = String.format("%." + digit + "f", newNum);
+            return numStr + unit;
+        }
+        return newNum + unit;
+    }
 }
 
