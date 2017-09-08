@@ -3,6 +3,7 @@ package com.little.easymv.adapter
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseViewHolder
 import com.jaydenxiao.common.baseadapter.MyBaseQuickAdapter
 import com.jaydenxiao.common.baseadapter.MyMultiItemAdapter
@@ -10,6 +11,7 @@ import com.jaydenxiao.common.commonutils.FormatUtil
 import com.jaydenxiao.common.commonutils.TimeUtil
 import com.little.easymv.R
 import com.little.easymv.bean.ComicTypeBean
+import com.little.easymv.extension.calculateSpan
 import com.little.easymv.extension.loadImage
 import com.little.easymv.responsebean.ComicResponse1
 import kotlinx.android.synthetic.main.item_chapter.view.*
@@ -65,28 +67,41 @@ class ComicDesAdapter : MyMultiItemAdapter<ComicTypeBean> {
     var subChapterList: List<ComicResponse1.ChaptersBean.DataBean>? = null
     var reverseOrder = false
     var isExpanse = false
-    var span:Int = 4
+    var span: Int = 4
+    private val itemClick: View.OnClickListener? = View.OnClickListener { view -> onItemClick(view) }
+
+    private fun onItemClick(view: View) {
+        when (view.id) {
+            R.id.chapter_order -> {
+
+                if (view is TextView) {
+//                    view.setText()
+                }
+            }
+        }
+    }
+
+//    private fun reverOrder() {
+//
+//    }
+
     private fun setChapter(helper: BaseViewHolder, itemView: View, bean: ComicTypeBean) {
         //绑定title
         val chapter = comicBean?.chapters?.get(0)
         itemView.chatper_title.text = mContext.getString(R.string.chapter_update, chapter?.title, TimeUtil.getStringByFormatSec(chapter?.data?.get(0)?.updatetime?.toLong(), "yyyy-MM-dd"))
         itemView.chapter_order.text = if (reverseOrder) "倒序" else "正序"
         val length = chapter?.data?.get(0)?.chapter_title?.length
-        if (length != null){
-            span = if (length!! > 5) 3 else 4
-            when(length!!) {
-                in 0..3 -> span = 4
-                in 4..7 -> span = 3
-                in 8..12 -> span = 2
-                else -> span = 1
-            }
-        }
+        span = calculateSpan(length)
 
         //绑定chatper
-        itemView.chapter_recy.layoutManager = GridLayoutManager(mContext,span)
-        subChapterList = chapter?.data?.take(4 * 3)
-        val chapterItemAdapter = ChapterItemAdapter(subChapterList?.toMutableList())
+        itemView.chapter_recy.layoutManager = GridLayoutManager(mContext, span)
+        subChapterList = chapter?.data?.take(span * 4)
+        val showList = if (isExpanse) chapter?.data else subChapterList
+        if (reverseOrder) showList?.reversed()
+        val chapterItemAdapter = ChapterItemAdapter(showList?.toMutableList())
         itemView.chapter_recy.adapter = chapterItemAdapter
+        itemView.chapter_order.setOnClickListener(itemClick)
+
     }
 
 

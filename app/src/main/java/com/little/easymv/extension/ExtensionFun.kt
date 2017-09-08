@@ -38,6 +38,20 @@ fun postMessage(event: Any) {
     EventBusUtil.post(event)
 }
 
+fun calculateSpan(length: Int?): Int {
+    var span = 4
+    if (length != null) {
+        span = if (length!! > 5) 3 else 4
+        when (length!!) {
+            in 0..3 -> span = 4
+            in 4..7 -> span = 3
+            in 8..12 -> span = 2
+            else -> span = 1
+        }
+    }
+
+    return span
+}
 //val TO_TOP = 0x33333;
 
 
