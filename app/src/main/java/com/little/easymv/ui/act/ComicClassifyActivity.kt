@@ -56,6 +56,7 @@ class ComicClassifyActivity : SlideBaseActivity<ComicClassifyMV>(), BaseQuickAda
                 ComicDesMV.start(item.id,item.title)
             }
         })
+
     }
 
     override fun onUpdate(type: Int) {

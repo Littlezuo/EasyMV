@@ -64,44 +64,57 @@ class ComicDesAdapter : MyMultiItemAdapter<ComicTypeBean> {
 
     }
 
-    var subChapterList: List<ComicResponse1.ChaptersBean.DataBean>? = null
-    var reverseOrder = false
+    //    var subChapterList: List<ComicResponse1.ChaptersBean.DataBean>? = null
+    var byOrder = false //按递增顺序
     var isExpanse = false
     var span: Int = 4
-    private val itemClick: View.OnClickListener? = View.OnClickListener { view -> onItemClick(view) }
+    //    private val itemClick: View.OnClickListener? = View.OnClickListener { view -> onItemClick(view) }
+    lateinit var chapterItemAdapter: ChapterItemAdapter
 
     private fun onItemClick(view: View) {
         when (view.id) {
             R.id.chapter_order -> {
+                byOrder = !byOrder
+                (view as TextView).text = if (byOrder) "正序" else "倒序"
+                notifyData()
 
-                if (view is TextView) {
-//                    view.setText()
-                }
+            }
+            R.id.tv_show_all -> {
+                isExpanse = !isExpanse
+                (view as TextView).text = if (isExpanse) "收起全部章节" else "查看全部章节"
+                notifyData()
             }
         }
     }
 
-//    private fun reverOrder() {
+    private fun notifyData() {
+        var showList = if (byOrder) chapter?.data?.reversed() else chapter?.data //先反转后截取
+         showList = if (isExpanse) showList else showList?.take(span * 4)
+        chapterItemAdapter.setNewData(showList)
+    }
+
+    //    private fun reverOrder() {
 //
 //    }
-
+     var chapter: ComicResponse1.ChaptersBean? = null
     private fun setChapter(helper: BaseViewHolder, itemView: View, bean: ComicTypeBean) {
         //绑定title
-        val chapter = comicBean?.chapters?.get(0)
+        chapter = comicBean?.chapters?.get(0)
         itemView.chatper_title.text = mContext.getString(R.string.chapter_update, chapter?.title, TimeUtil.getStringByFormatSec(chapter?.data?.get(0)?.updatetime?.toLong(), "yyyy-MM-dd"))
-        itemView.chapter_order.text = if (reverseOrder) "倒序" else "正序"
+        itemView.chapter_order.text = if (byOrder) "正序" else "倒序"
         val length = chapter?.data?.get(0)?.chapter_title?.length
         span = calculateSpan(length)
-
         //绑定chatper
         itemView.chapter_recy.layoutManager = GridLayoutManager(mContext, span)
-        subChapterList = chapter?.data?.take(span * 4)
-        val showList = if (isExpanse) chapter?.data else subChapterList
-        if (reverseOrder) showList?.reversed()
-        val chapterItemAdapter = ChapterItemAdapter(showList?.toMutableList())
-        itemView.chapter_recy.adapter = chapterItemAdapter
-        itemView.chapter_order.setOnClickListener(itemClick)
 
+        var showList = if (byOrder) chapter?.data?.reversed() else chapter?.data //先反转后截取
+        showList = if (isExpanse) showList else showList?.take(span * 4)
+//        var showList = if (isExpanse) chapter?.data else chapter?.data?.take(span * 4)
+//        if (byOrder)showList =  showList?.reversed()
+        chapterItemAdapter = ChapterItemAdapter(showList?.toMutableList())
+        itemView.chapter_recy.adapter = chapterItemAdapter
+        itemView.chapter_order.setOnClickListener { view -> onItemClick(view) }
+        itemView.tv_show_all.setOnClickListener { view -> onItemClick(view) }
     }
 
 

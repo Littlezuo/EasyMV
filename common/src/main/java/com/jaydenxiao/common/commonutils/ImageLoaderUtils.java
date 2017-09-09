@@ -90,10 +90,10 @@ public class ImageLoaderUtils {
         if (imageView == null) {
             throw new IllegalArgumentException("argument error");
         }
-        //        Glide.with(context).load(url)
-        //                .diskCacheStrategy(DiskCacheStrategy.ALL)
-        //                .error(R.drawable.toux2)
-        //                .centerCrop().transform(new GlideRoundTransformUtil(context)).into(imageView);
+                Glide.with(context).load(url)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .error(R.drawable.toux2)
+                        .centerCrop().transform(new GlideRoundTransformUtil(context)).into(imageView);
 
 
     }
