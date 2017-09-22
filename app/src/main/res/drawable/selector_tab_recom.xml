@@ -3,6 +3,8 @@
 
     <item android:state_selected="true" android:drawable="@drawable/ic_recom_selected"/>
     <item android:state_selected="false" android:drawable="@drawable/ic_recom_default"/>
+    <item android:state_checked="true" android:drawable="@drawable/ic_recom_selected"/>
+    <item android:state_checked="false" android:drawable="@drawable/ic_recom_default"/>
     <item android:drawable="@drawable/ic_recom_default"/>
 
 </selector>

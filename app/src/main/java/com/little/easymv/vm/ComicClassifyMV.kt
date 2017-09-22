@@ -51,7 +51,7 @@ class ComicClassifyMV : SlideViewModel() {
 
         Api.getDefault(HostType.KaBu)
 //                .getClassify("classify/" + id + "/0/" + page + ".json")
-                .getClassify(id,page)
+                .getClassify(id, page)
 //                .getClassify("classify/3262/0/0.json")
                 .compose(RxHelper.handleErr())
                 .subscribe(

@@ -1,6 +1,7 @@
 package com.little.easymv.ui.act
 
 import android.support.design.widget.NavigationView
+import android.support.design.widget.TabLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
 import android.view.View
@@ -58,6 +59,19 @@ class MainActivity : BaseActivity<MainMV>(), NavigationView.OnNavigationItemSele
         ImageLoaderUtils.displayCircle(this, headerView.im_face, R.drawable.pig)
         ImageLoaderUtils.displayCircle(this, iv_user, R.drawable.pig)
         fab.setOnClickListener(this)
+        tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+//                val drawable = ContextCompat.getDrawable(AppManager.getAppManager().currentActivity(), R.drawable.ic_launcher)
+//                tab?.setIcon(drawable)
+            }
+        })
     }
 
     override fun onUpdate(type: Int) {
@@ -67,6 +81,5 @@ class MainActivity : BaseActivity<MainMV>(), NavigationView.OnNavigationItemSele
     override fun onClick(v: View?) {
         postMessage(EventUI(TO_TOP))
     }
-
 
 }
