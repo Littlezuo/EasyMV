@@ -89,14 +89,15 @@ class ComicDesAdapter : MyMultiItemAdapter<ComicTypeBean> {
 
     private fun notifyData() {
         var showList = if (byOrder) chapter?.data?.reversed() else chapter?.data //先反转后截取
-         showList = if (isExpanse) showList else showList?.take(span * 4)
+        showList = if (isExpanse) showList else showList?.take(span * 4)
         chapterItemAdapter.setNewData(showList)
     }
 
     //    private fun reverOrder() {
 //
 //    }
-     var chapter: ComicResponse1.ChaptersBean? = null
+    var chapter: ComicResponse1.ChaptersBean? = null
+
     private fun setChapter(helper: BaseViewHolder, itemView: View, bean: ComicTypeBean) {
         //绑定title
         chapter = comicBean?.chapters?.get(0)

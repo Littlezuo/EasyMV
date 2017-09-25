@@ -3,10 +3,12 @@ package com.little.easymv.ui.act
 import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
 import android.support.v7.app.ActionBarDrawerToggle
+import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
 import com.jaydenxiao.common.basemvvm.BaseActivity
 import com.jaydenxiao.common.commonutils.ImageLoaderUtils
+import com.jaydenxiao.common.commonutils.LogUtils
 import com.little.easymv.HomePageAdapter
 import com.little.easymv.R
 import com.little.easymv.event.EventUI
@@ -26,6 +28,14 @@ class MainActivity : BaseActivity<MainMV>(), NavigationView.OnNavigationItemSele
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 //        if (item.itemId == R.id.nav_manage)
+        when (item.itemId) {
+            R.id.nav_local_manga -> {
+                LogUtils.loge("本地漫画")
+                log
+            }
+        }
+
+        dl_main_drawer.closeDrawer(Gravity.LEFT)
         return true;
     }
 
@@ -59,7 +69,7 @@ class MainActivity : BaseActivity<MainMV>(), NavigationView.OnNavigationItemSele
         ImageLoaderUtils.displayCircle(this, headerView.im_face, R.drawable.pig)
         ImageLoaderUtils.displayCircle(this, iv_user, R.drawable.pig)
         fab.setOnClickListener(this)
-        tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+        tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
 
             }
