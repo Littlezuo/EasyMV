@@ -27,12 +27,13 @@ class CateMV : ListViewModel() {
 
         Api.getDefault(HostType.KaBu).category
                 .compose(RxHelper.handleErr())
-                .subscribe(object : BaseSubscriber<MutableList<CategoryResponse>>(rootView.refreshLayout) {
+                .subscribe(object : BaseSubscriber<MutableList<CategoryResponse>>() {
                     override fun _onNext(cateResponses: MutableList<CategoryResponse>) {
 //                        formatRecoms = formatRecom(recommendResponses)
                         cateList = cateResponses
                         isErr = false
                         mVMListener.onUpdate(DEFAULT)
+                        rootView.refreshLayout.finishRefresh()
 //                        rootView.refreshLayout.alpha = 0f;
 //                        rootView.refreshLayout.setVisibility(View.GONE)
                     }
@@ -41,7 +42,7 @@ class CateMV : ListViewModel() {
                         super._onError(message)
                         isErr = true
                         mVMListener.onUpdate(DEFAULT)
-
+                        rootView.refreshLayout.finishRefresh(false)
                     }
                 })
     }

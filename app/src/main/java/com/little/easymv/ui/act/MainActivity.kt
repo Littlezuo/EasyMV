@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
+import com.jaydenxiao.common.baseapp.Router
 import com.jaydenxiao.common.basemvvm.BaseActivity
 import com.jaydenxiao.common.commonutils.ImageLoaderUtils
 import com.jaydenxiao.common.commonutils.LogUtils
@@ -31,7 +32,7 @@ class MainActivity : BaseActivity<MainMV>(), NavigationView.OnNavigationItemSele
         when (item.itemId) {
             R.id.nav_local_manga -> {
                 LogUtils.loge("本地漫画")
-                log
+                Router.from().to(CustomViewActivity::class.java).launch()
             }
         }
 

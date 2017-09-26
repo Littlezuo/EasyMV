@@ -43,6 +43,8 @@
         </activity>
         <activity android:name=".ui.act.ComicDesActivity">
         </activity>
+        <activity android:name=".ui.act.CustomViewActivity">
+        </activity>
     </application>
 
 </manifest>
