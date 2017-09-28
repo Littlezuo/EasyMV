@@ -42,7 +42,7 @@ open class MyRefreshHeader : LinearLayout, RefreshHeader {
     override fun onStateChanged(refreshLayout: RefreshLayout?, oldState: RefreshState?, newState: RefreshState?) {
         when(newState) {
             RefreshState.PullDownToRefresh -> {
-                mHeaderText.text = "亲,下拉就可以刷新了"
+                mHeaderText.text = "使劲儿.."
                 mArrowView.visibility = View.VISIBLE //显示箭头
                 mProgressView.visibility = View.GONE //隐藏刷新动画
                 val animator = mArrowView.animate().rotation(180f)
@@ -50,12 +50,12 @@ open class MyRefreshHeader : LinearLayout, RefreshHeader {
 //                ViewCompat.animate(mArrowView)
             }
             RefreshState.Refreshing -> {
-                mHeaderText.text = "刷新ing"
+                mHeaderText.text = "咔咔咔加载中..."
                 mProgressView.visibility = View.VISIBLE
                 mArrowView.visibility = View.GONE
             }
             RefreshState.ReleaseToRefresh -> {
-                mHeaderText.text = "let me fly"
+                mHeaderText.text = "放手是一种智慧"
                 ViewCompat.animate(mArrowView).rotation(180f)//显示箭头改为朝上
             }
         }

@@ -10,7 +10,7 @@ import com.jaydenxiao.common.baseapp.AppManager;
 import com.jaydenxiao.common.baseevent.BindBus;
 import com.jaydenxiao.common.baseevent.EventBusUtil;
 import com.jaydenxiao.common.baserx.RxManager;
-import com.jaydenxiao.common.commonutils.StatusBarUtil;
+import com.jaydenxiao.common.commonutils.StatusBarUtils;
 import com.jaydenxiao.common.commonutils.TUtil;
 
 /**
@@ -93,12 +93,13 @@ public abstract class BaseActivity<M extends ViewModel> extends AppCompatActivit
     public void setStatusBar() {
         //设置状态栏为白色 , 字体颜色为深色,
         //        StatusBarUtil.StatusBarLightMode(this,R.color.white);
-        StatusBarUtil.setStatusBarColor(this, R.color.colorPrimary);
+//        StatusBarUtil.setStatusBarColor(this, R.color.colorPrimary);
+        StatusBarUtils.setColor(this,mContext.getResources().getColor(R.color.colorPrimary) ,1);
     }
     public void setStatusBar(int colorid) {
         //设置状态栏为白色 , 字体颜色为深色,
 //                StatusBarUtil.StatusBarLightMode(this,R.color.white);
-        StatusBarUtil.setStatusBarColor(this,colorid);
+//        StatusBarUtil.setStatusBarColor(this,colorid);
     }
 
 }
