@@ -62,6 +62,7 @@ public class PieChartView extends View {
         if(canvas == null) {
             return;
         }
+//        canvas.drawa
         paint.setStyle(Paint.Style.STROKE);
         canvas.translate(centerX,centerY);
         Rect rect = new Rect();
@@ -70,7 +71,7 @@ public class PieChartView extends View {
         path.moveTo(-30,-30);
         path.lineTo(-(float)(Radius * Math.sin(45)) - 30.0f,-(float)(Radius * Math.sin(45)) - 30.0f);
         path.lineTo(-Radius  - 50,-(float)(Radius * Math.sin(45)) - 30.0f);
-
+//        boolean fillPath = paint.getFillPath();
         canvas.drawPath(path,paint);
         //        综合练习
         //        练习内容：使用各种 Canvas.drawXXX() 方法画饼图

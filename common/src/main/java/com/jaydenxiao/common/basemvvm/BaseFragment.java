@@ -47,9 +47,9 @@ public abstract class BaseFragment<M extends ViewModel> extends Fragment impleme
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        if (rootView==null) {
+//        if (rootView==null) {
             rootView = inflater.inflate(getLayoutResource(), container, false);
-        }
+//        }
         mContext = (BaseActivity) getActivity();
         mRxManager = new RxManager();
         if(this.getClass().isAnnotationPresent(BindBus.class)) {
