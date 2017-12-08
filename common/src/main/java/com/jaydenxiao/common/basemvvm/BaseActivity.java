@@ -17,7 +17,7 @@ import com.jaydenxiao.common.commonutils.TUtil;
  * Created by joyin on 17-4-12.
  */
 
-public abstract class BaseActivity<M extends ViewModel> extends AppCompatActivity implements  VMListener {
+public abstract class BaseActivity<M extends ViewModel> extends AppCompatActivity implements VMListener {
 
     public BaseActivity mContext;
     public M model;
@@ -28,26 +28,28 @@ public abstract class BaseActivity<M extends ViewModel> extends AppCompatActivit
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         doBeforeSetContentView();
-        setContentView(getLayoutId());
         mContext = this;
+        setContentView(getLayoutId());
         mRxManager = new RxManager();
-        if(this.getClass().isAnnotationPresent(BindBus.class)) {
+        if (this.getClass().isAnnotationPresent(BindBus.class)) {
             EventBusUtil.register(this);
         }
         //默认使用viewmodel
-        if(!this.getClass().isAnnotationPresent(UnbindMV.class)) {
+        if (!this.getClass().isAnnotationPresent(UnbindMV.class)) {
             setModel();
         }
         initData();
     }
 
-    protected  void initData(){}
+    protected void initData() {
+    }
+
     public abstract int getLayoutId();
 
     private void doBeforeSetContentView() {
         AppManager.getAppManager().addActivity(this);
         // 无标题
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //        requestWindowFeature(Window.FEATURE_NO_TITLE);
         // 设置竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
@@ -73,7 +75,7 @@ public abstract class BaseActivity<M extends ViewModel> extends AppCompatActivit
         if (model != null) {
             model.onDestory();
         }
-        if(this.getClass().isAnnotationPresent(BindBus.class)) {
+        if (this.getClass().isAnnotationPresent(BindBus.class)) {
             EventBusUtil.unregister(this);
         }
         super.onDestroy();
@@ -93,13 +95,14 @@ public abstract class BaseActivity<M extends ViewModel> extends AppCompatActivit
     public void setStatusBar() {
         //设置状态栏为白色 , 字体颜色为深色,
         //        StatusBarUtil.StatusBarLightMode(this,R.color.white);
-//        StatusBarUtil.setStatusBarColor(this, R.color.colorPrimary);
-        StatusBarUtils.setColor(this,mContext.getResources().getColor(R.color.colorPrimary) ,1);
+        //        StatusBarUtil.setStatusBarColor(this, R.color.colorPrimary);
+        StatusBarUtils.setColor(this, mContext.getResources().getColor(R.color.colorPrimary), 1);
     }
+
     public void setStatusBar(int colorid) {
         //设置状态栏为白色 , 字体颜色为深色,
-//                StatusBarUtil.StatusBarLightMode(this,R.color.white);
-//        StatusBarUtil.setStatusBarColor(this,colorid);
+        //                StatusBarUtil.StatusBarLightMode(this,R.color.white);
+        //        StatusBarUtil.setStatusBarColor(this,colorid);
     }
 
 }

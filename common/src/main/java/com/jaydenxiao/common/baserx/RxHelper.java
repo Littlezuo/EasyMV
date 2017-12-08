@@ -34,8 +34,8 @@ public class RxHelper {
                         .flatMap(new <T>HandleResultFuc())    //将RxSubscriber中服务器异常处理换到这里,在RxSubscriber中处理onstart(),onCompleted().onError,onNext()
                         .compose(io_main()) //处理线程切换,注销Observable
                         .onErrorResumeNext(httpResponseFunc());//判断异常
-//                        .retryWhen(new RetryFuc(3, 2 * 1000)) //重试次数,重试间隔
-//                        .retryWhen(new TimeOutRetry());  //token过期的重试
+                //                        .retryWhen(new RetryFuc(3, 2 * 1000)) //重试次数,重试间隔
+                //                        .retryWhen(new TimeOutRetry());  //token过期的重试
             }
         };
     }
@@ -94,7 +94,6 @@ public class RxHelper {
     }
 
 
-
     /**
      * 调度器,切换线程和注销Observable
      *
@@ -125,7 +124,7 @@ public class RxHelper {
                 public Observable<?> call(Throwable throwable) {
                     if (throwable instanceof TimeoutException) {
                         //登录超时,重新登录
-//                        FrameWorkConfig.frameworkSupport.onSessionInvaild();
+                        //                        FrameWorkConfig.frameworkSupport.onSessionInvaild();
                     }
                     return Observable.error(throwable);
                 }

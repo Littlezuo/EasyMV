@@ -27,6 +27,7 @@ class RecomMultiItemAdapter : MyMultiItemAdapter<FormatRecomBean> {
         addItemType(FormatRecomBean.TITLE, R.layout.layout_recom_title)
         setSapn()
     }
+
     init {
 //        LogUtils.loge("init....")
     }

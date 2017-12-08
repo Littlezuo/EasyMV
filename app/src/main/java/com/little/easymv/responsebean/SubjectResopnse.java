@@ -23,7 +23,7 @@ public class SubjectResopnse {
     private int id;
     private String title;
     private String short_title;
-    private int create_time;
+    private Long create_time;
     private String small_cover;
     private int page_type;
     private int sort;
@@ -53,11 +53,11 @@ public class SubjectResopnse {
         this.short_title = short_title;
     }
 
-    public int getCreate_time() {
+    public Long getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(int create_time) {
+    public void setCreate_time(Long create_time) {
         this.create_time = create_time;
     }
 

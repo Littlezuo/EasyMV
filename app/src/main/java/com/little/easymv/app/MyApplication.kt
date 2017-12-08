@@ -2,10 +2,12 @@ package com.little.easymv.app
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
+import com.facebook.drawee.backends.pipeline.Fresco
 import com.jaydenxiao.common.baseapp.BaseApplication
 import com.little.easymv.BuildConfig
 import com.little.easymv.R
 import com.little.easymv.constants.EnvirConfig
+import com.little.easymv.other.ImageLoaderConfig
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
@@ -32,6 +34,7 @@ class MyApplication : BaseApplication() {
             footer//指定为经典Footer，默认是 BallPulseFooter
         }
     }
+
     object C {
         lateinit var context: Context
     }
@@ -42,6 +45,7 @@ class MyApplication : BaseApplication() {
         C.context = applicationContext
         EnvirConfig.setEnvir(BuildConfig.API_ENV)
         getAppContext()
+        Fresco.initialize(getAppContext(), ImageLoaderConfig.getImagePipelineConfig(getAppContext()))
     }
 
     //Companion Object是在类第一次加载时执行

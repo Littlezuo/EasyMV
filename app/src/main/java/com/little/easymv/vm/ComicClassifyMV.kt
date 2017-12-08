@@ -25,6 +25,7 @@ class ComicClassifyMV : SlideViewModel() {
     lateinit var title: String
     //        var classifyList:List<ClassifyResponse>? = listOf<ClassifyResponse>()
     var classifyList: MutableList<ClassifyResponse>? = mutableListOf<ClassifyResponse>()
+//    var classifyList: MutableList<ClassifyResponse>? = null
 
     //    var classifyList = mutableListOf<ClassifyResponse>()
 //    var classifyList: MutableList<CategoryResponse>? = null;

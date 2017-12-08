@@ -13,12 +13,13 @@ class ComicDesActivity : SlideBaseActivity<ComicDesMV>() {
 
 
     override fun getLayoutId(): Int {
-        setStatusBar()
+
         return R.layout.activity_comic_des
     }
 
     override fun initData() {
         super.initData()
+        setStatusBar()
         initView()
         initAdapter()
         model.reuqestNet4comicDes()

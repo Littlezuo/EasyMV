@@ -5,7 +5,6 @@ import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.jaydenxiao.common.basemvvm.ViewModel
-import com.jaydenxiao.common.commonutils.StatusBarUtils
 import com.little.easymv.R
 import com.little.easymv.adapter.ComicAdapter
 import com.little.easymv.base.SlideBaseActivity
@@ -27,13 +26,12 @@ class ComicClassifyActivity : SlideBaseActivity<ComicClassifyMV>(), BaseQuickAda
 
 
     override fun getLayoutId(): Int {
-        setStatusBar()
-
         return R.layout.activity_comic_classify
     }
 
     override fun initData() {
         super.initData()
+        setStatusBar()
         initView()
         initAdapter()
         model.requestNet4classifyDetail()

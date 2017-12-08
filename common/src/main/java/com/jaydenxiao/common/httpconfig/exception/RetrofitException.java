@@ -33,9 +33,9 @@ public class RetrofitException {
     public static Throwable handleException(java.lang.Throwable e) {
         LogUtils.loge("RetrofitException", e.getMessage());
         Throwable ex;
-        if(NetWorkUtils.isNetConnected(BaseApplication.getAppContext())) {
+        if (NetWorkUtils.isNetConnected(BaseApplication.getAppContext())) {
             if (e instanceof HttpException) {
-                HttpException httpException = (HttpException)e;
+                HttpException httpException = (HttpException) e;
                 ex = new Throwable(e, ERROR.HTTP_ERROR);    //协议出错
                 switch (httpException.code()) {
                     case UNAUTHORIZED:  //一般是token过期,在这里处理可以,抛一个token过期的异常也可以,retry可以解决
@@ -116,7 +116,7 @@ public class RetrofitException {
                 ex = new Throwable(resultException, resultException.code);
                 ex.setMessage(resultException.message);
                 return ex;
-            }else if (e instanceof CusException) {
+            } else if (e instanceof CusException) {
                 CusException resultException = (CusException) e;
                 ex = new Throwable(resultException, resultException.code);
                 ex.setMessage(resultException.message);
@@ -126,7 +126,7 @@ public class RetrofitException {
                 ex.setMessage(e.getMessage());
                 return ex;
             }
-        }else {
+        } else {
             ex = new Throwable(e, ERROR.NETWORD_ERROR);
             ex.setMessage("网络错误,请检查是否连接网络");
             return ex;

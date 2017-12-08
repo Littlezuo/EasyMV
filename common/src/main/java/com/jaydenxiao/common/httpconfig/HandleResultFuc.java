@@ -26,11 +26,10 @@ public class HandleResultFuc<T> implements Func1<BaseResponse<T>, Observable<T>>
             if (baseResponse == null) {
                 throw new NullPointerException();
             }
-//            //格式转换异常
-//            if (ConfigLoader.isFormat(BaseApplication.getAppContext()) && baseResponse.getData() == null & baseResponse.getResult() == null) {
-//                throw new FormatException();
-//            }
-
+            //            //格式转换异常
+            //            if (ConfigLoader.isFormat(BaseApplication.getAppContext()) && baseResponse.getData() == null & baseResponse.getResult() == null) {
+            //                throw new FormatException();
+            //            }
             //类似于code == 200,1,0 就表示请求成功
             if (baseResponse.isOk()) {
                 if (null != baseResponse.getRet())
@@ -40,9 +39,7 @@ public class HandleResultFuc<T> implements Func1<BaseResponse<T>, Observable<T>>
                 if (null != baseResponse.getData())
                     return createData(baseResponse.getData());
                 return createData(baseResponse.getResult());
-            }
-            //请求失败抛异常
-            else {
+            } else {       //请求失败抛异常
                 String msg = baseResponse.getMsg() != null ? baseResponse.getMsg() : baseResponse.getError() != null
                         ? baseResponse.getError() : baseResponse.getMessage() != null ? baseResponse.getMessage() : "api未知异常";
 

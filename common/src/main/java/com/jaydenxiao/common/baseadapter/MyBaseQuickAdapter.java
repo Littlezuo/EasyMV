@@ -80,10 +80,11 @@ public abstract class MyBaseQuickAdapter<T> extends BaseQuickAdapter<T, BaseView
 
     //    @Override
     public void addData(@Nullable List<T> newData) {
-        addData(newData,false);
+        addData(newData, false);
 
     }
-    public void addData(@Nullable List<T> newData,Boolean isErr) {
+
+    public void addData(@Nullable List<T> newData, Boolean isErr) {
         super.addData(newData);
         if (mData == null || mData.size() <= 0) {
             if (newData == null || newData.size() <= 0) {
@@ -91,9 +92,9 @@ public abstract class MyBaseQuickAdapter<T> extends BaseQuickAdapter<T, BaseView
             }
         } else {
             if (newData == null || newData.size() <= 0) {
-                if(isErr) {
+                if (isErr) {
                     loadMoreFail();
-                }else {
+                } else {
                     loadMoreEnd();
                 }
             } else {
@@ -133,7 +134,9 @@ public abstract class MyBaseQuickAdapter<T> extends BaseQuickAdapter<T, BaseView
 
     @Override
     protected void convert(BaseViewHolder helper, T item) {
-        convert(helper,helper.itemView,item);
+        if (helper != null && helper.itemView != null && item != null) {
+            convert(helper, helper.itemView, item);
+        }
     }
 
     protected abstract void convert(BaseViewHolder helper, View itemView, T bean);

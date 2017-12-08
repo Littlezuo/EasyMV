@@ -15,6 +15,7 @@ import com.little.easymv.constants.UrlConstants;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.concurrent.TimeUnit;
@@ -25,9 +26,11 @@ import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Cache;
 import okhttp3.CacheControl;
+import okhttp3.FormBody;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -249,6 +252,36 @@ public class Api {
         }
     };
 
+    private final Interceptor mParamsInterceptor = new Interceptor() {
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            Request request = chain.request();
+            //            Log.e("kkkk", request.url().toString() +"");
+            Request.Builder requestBuilder = request.newBuilder();
+            FormBody.Builder postData = new FormBody.Builder();
+
+            RequestBody body = request.body();
+            if (body instanceof FormBody) {
+                FormBody oldFormBody = (FormBody) body;
+                //                Map<String, Object> toSignParams = new HashMap<>();
+                for (int i = 0; i < oldFormBody.size(); i++) {
+                    String key = oldFormBody.encodedName(i);
+                    String value = oldFormBody.encodedValue(i);
+                    //                    oldBody.write2file(key,value);
+                    String decode = URLDecoder.decode(value, "UTF-8");
+                    postData.add(key, decode);
+                }
+            }
+//            Map<String, String> commParams = RequestUtil.getCommonParams();
+//            for (Map.Entry<String, String> entery : commParams.entrySet()) {
+//                postData.add(entery.getKey(), entery.getValue());
+//            }
+            requestBuilder.method(request.method(), postData.build());
+
+            request = requestBuilder.build();
+            return chain.proceed(request);
+        }
+    };
 //    private final Interceptor mParamsInterceptor = new Interceptor() {
 //        @Override
 //        public Response intercept(Chain chain) throws IOException {

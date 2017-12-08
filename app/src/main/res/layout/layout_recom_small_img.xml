@@ -1,30 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--<android.support.v7.widget.CardView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--xmlns:android="http://schemas.android.com/apk/res/android">-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--xmlns:android="http://schemas.android.com/apk/res/android">-->
 
 <LinearLayout
-
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical"
-    android:padding="5dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:padding="5dp">
 
     <ImageView
         android:id="@+id/img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="fitCenter"
         android:layout_gravity="center"
         android:minHeight="150dp"
-      />
+        android:scaleType="fitCenter"
+        />
     <!--        android:minHeight="150dp"
     android:foreground="?android:attr/selectableItemBackgroundBorderless"-->
     <!--tools:targetApi="lollipop"-->
+
+    <!--<com.facebook.drawee.view.SimpleDraweeView-->
+
+    <!--android:id="@+id/img"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--fresco:placeholderImage="@drawable/ic_image_loading"-->
+    <!--fresco:roundingBorderColor="@color/gray"-->
+    <!--fresco:roundingBorderWidth="2dp"-->
+    <!--fresco:viewAspectRatio="0.75"/>-->
+
 
     <TextView
         android:id="@+id/main_title"
@@ -33,8 +44,9 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:paddingTop="5dp"
-        tools:text="猪标题"
-        android:textSize="12sp"/>
+        android:textSize="12sp"
+        tools:text="猪标题"/>
+
     <TextView
         android:id="@+id/sub_title"
         android:layout_width="match_parent"
@@ -42,10 +54,10 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:paddingTop="5dp"
-        tools:text="子标题"
         android:textColor="@color/gray_dark"
         android:textSize="10sp"
-       android:visibility="gone"/>
+        android:visibility="gone"
+        tools:text="子标题"/>
 </LinearLayout>
 
-<!--</android.support.v7.widget.CardView>-->
+    <!--</android.support.v7.widget.CardView>-->
